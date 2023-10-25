@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+<system:String x:Key="COMMON_BUTTON_CLOSE"> </system:String>
+<system:String x:Key="MODELFROMCAD_HIEGHT">Chi?u cao</system:String>
+<system:String x:Key="MODELFROMCAD_WIDTH">Chi?u r?ng</system:String>
+<system:String x:Key="">M�ng C?c</system:String>
+<system:String x:Key="">S? M�ng C?c</system:String>
+<system:String x:Key="">M?c ??nh</system:String>
+<system:String x:Key="">Th�ng Tin C?c</system:String>
+<system:String x:Key="">Lo?i C?c</system:String>
+<system:String x:Key="">Chi?u D�i C?c</system:String>
+<system:String x:Key="">Kho?ng C�ch C?c ??n C?c</system:String>
+<system:String x:Key="">M�p ?�i ??n C?c</system:String>
+<system:String x:Key="">C?c Ng�m ?�i</system:String>
+<system:String x:Key="">?�i C?c</system:String>
+<system:String x:Key="">Vu�ng</system:String>
+<system:String x:Key="">Tr? Gi�p</system:String>
+<system:String x:Key="">S?p X?p T?ng D?n Theo Chi?u D�i Th�p</system:String>
+<system:String x:Key="">S?p X?p Gi?m D?n Theo Chi?u D�i Th�p</system:String>
+<system:String x:Key="">S?p X?p ?u Ti�n Th�p Ch? ??n Th�p ?ai</system:String>
+<system:String x:Key="">S?p X?p ?u Ti�n Th�p ?ai ??n Th�p Ch?</system:String>
+<system:String x:Key="">S? Ck</system:String>
+<system:String x:Key="">S? Hi?u</system:String>
+<system:String x:Key="">H�nh D?ng</system:String>
+<system:String x:Key="">Trong 1 C?u Ki?n</system:String>
+<system:String x:Key="">L(N?i)</system:String>
+<system:String x:Key="">T?ng C?u Ki?n</system:String>
+<system:String x:Key="">C.D�i (M)</system:String>
+<system:String x:Key="">Minh Ho?</system:String>
+</ResourceDictionary>
