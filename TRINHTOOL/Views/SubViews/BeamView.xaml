@@ -1,0 +1,223 @@
+﻿<UserControl x:Class="TRINHTOOL.Views.SubViews.BeamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TRINHTOOL.Views.SubViews"
+             xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
+             mc:Ignorable="d" >
+   <FrameworkElement.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/TRINHTOOL;component/Resources/ResourceString.en.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/HcBimUtils;component/WPFUtils/ResourceDictionaries/Styles.xaml" />
+         </ResourceDictionary.MergedDictionaries>
+
+         <Style TargetType="Button"
+                   BasedOn="{StaticResource ResourceKey=ButtonStyle}" />
+         <Style TargetType="RadioButton"
+                   BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" />
+         <!--<Style TargetType="GroupBox"
+                   BasedOn="{StaticResource ResourceKey=GroupBoxStyle}" />-->
+         <Style TargetType="ComboBox"
+                   BasedOn="{StaticResource ResourceKey=ComboBoxStyle}">
+            <Setter Property="Height"
+                        Value="40" />
+         </Style>
+         <Style TargetType="ToggleButton"
+                   BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" />
+         <Style TargetType="TextBox"
+                   BasedOn="{StaticResource ResourceKey=TextBoxStyle}" />
+         <Style TargetType="ProgressBar"
+                   BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" />
+         <Style x:Key="CenterGridHeaderStyle"
+                   TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment"
+                        Value="Center" />
+         </Style>
+      </ResourceDictionary>
+   </FrameworkElement.Resources>
+   <Grid Margin="5,5,5,5">
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="17*" />
+         <ColumnDefinition Width="86*" />
+      </Grid.ColumnDefinitions>
+      <DockPanel LastChildFill="True"
+                   Grid.ColumnSpan="2">
+         <GroupBox Margin="0,0,0,5"
+                      DockPanel.Dock="Top"
+                      Header="{DynamicResource MODELFROMCAD_SETTINGS}">
+            <Grid Margin="4">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="55"></RowDefinition>
+                  <RowDefinition Height="55"></RowDefinition>
+                  <RowDefinition Height="55"></RowDefinition>
+               </Grid.RowDefinitions>
+
+               <Grid Margin="4"
+                          Grid.Row="0">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource MODELFROMCAD_FAMILY}"></TextBlock>
+                  <ComboBox Grid.Column="1"
+                                  SelectedItem="{Binding FamilySelected}"
+                                  DisplayMemberPath="Name"
+                                  ItemsSource="{Binding Families}"></ComboBox>
+               </Grid>
+
+               <Grid Margin="4"
+                          Grid.Row="1">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource MODELFROMCAD_WIDTH}">:</TextBlock>
+                  <ComboBox SelectedItem="{Binding SelectedWidthParameter}"
+                                  ItemsSource="{Binding SelectedFamilyParameters}"
+                                  Grid.Column="1"></ComboBox>
+
+                  <TextBlock Grid.Column="2"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource MODELFROMCAD_HIEGHT}">:</TextBlock>
+                  <ComboBox SelectedItem="{Binding SelectedHeightParameter}"
+                                  Grid.Column="3"
+                                  ItemsSource="{Binding SelectedFamilyParameters}"></ComboBox>
+               </Grid>
+
+               <Grid Margin="4"
+                          Grid.Row="2">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource MODELFROMCAD_LEVEL}"></TextBlock>
+                  <ComboBox DisplayMemberPath="Name"
+                                  ItemsSource="{Binding Levels}"
+                                  SelectedItem="{Binding SelectedLevel}"
+                                  Grid.Column="1"></ComboBox>
+
+               </Grid>
+
+               <Grid Margin="4"
+                          Grid.Row="3">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="70"></ColumnDefinition>
+                     <ColumnDefinition></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+
+               </Grid>
+            </Grid>
+         </GroupBox>
+
+         <Grid Height="55"
+                  DockPanel.Dock="Bottom">
+            <wpfUtils:FooterLeft HorizontalAlignment="Left"></wpfUtils:FooterLeft>
+            <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Height="40"
+                            DockPanel.Dock="Bottom">
+               <Button  Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
+                             Background="LightGray"
+                             Foreground="Black"
+                             Width="112"
+                             Height="26"
+                             Margin="5,5,5,5"
+                             HorizontalAlignment="Right"
+                             Command="{Binding SelectFromCad}"></Button>
+               <Button Name="BtClose"
+                            Background="LightGray"
+                             Foreground="Black"                            
+                            Content="{DynamicResource COMMON_BUTTON_CREATE}"
+                            Width="68"
+                            IsCancel="True"
+                            Height="26"
+                            Margin="5,5,0,5"
+                            HorizontalAlignment="Right"
+                            Command="{Binding Create}"></Button>
+
+            </StackPanel>
+         </Grid>
+
+         <DataGrid BorderBrush="BlueViolet"
+                      Margin="2"
+                      RowHeight="23"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      SelectionMode="Extended"
+                      ItemsSource="{Binding BeamInfoCollections,Mode=TwoWay}">
+            <DataGrid.CellStyle>
+               <Style TargetType="DataGridCell">
+                  <Setter Property="TextBlock.TextAlignment"
+                                Value="Center" />
+               </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+               <Style TargetType="DataGridColumnHeader">
+                  <Setter Property="HorizontalContentAlignment"
+                                Value="Center" />
+               </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+
+               <DataGridTextColumn 
+                                        Width="*"
+                                        Binding="{Binding Path= Width}"
+                                        IsReadOnly="False"
+                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                  <DataGridTextColumn.Header>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_WIDTH}"></TextBlock>
+                  </DataGridTextColumn.Header>
+               </DataGridTextColumn>
+
+               <DataGridTextColumn 
+                                        Width="*"
+                                        IsReadOnly="False"
+                                        Binding="{Binding Path= Height}"
+                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                  <DataGridTextColumn.Header>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_HIEGHT}"></TextBlock>
+                  </DataGridTextColumn.Header>
+               </DataGridTextColumn>
+
+               <DataGridTextColumn 
+                                        Width="*"
+                                        Binding="{Binding Path= Number}"
+                                        IsReadOnly="False"
+                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                  <DataGridTextColumn.Header>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_NUMBER}"></TextBlock>
+                  </DataGridTextColumn.Header>
+               </DataGridTextColumn>
+               <DataGridTextColumn 
+                                        Width="*"
+                                        Binding="{Binding Path= Mark, Mode=TwoWay}"
+                                        IsReadOnly="False"
+                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+                  <DataGridTextColumn.Header>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_MARK}"/>
+                  </DataGridTextColumn.Header>
+               </DataGridTextColumn>
+            </DataGrid.Columns>
+         </DataGrid>
+      </DockPanel>
+
+   </Grid>
+</UserControl>

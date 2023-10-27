@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BimSpeedModelFromCad.ModelFromCad.View.SubViews
+namespace TRINHTOOL.Views.SubViews
 {
-    /// <summary>
-    /// Interaction logic for CreateFloorView.xaml
-    /// </summary>
-    public partial class CreateFloorView : UserControl
-    {
-        public CreateFloorView()
-        {
-            InitializeComponent();
-        }
-    }
+   /// <summary>
+   /// Interaction logic for ColumnView.xaml
+   /// </summary>
+   public partial class ColumnView : UserControl
+   {
+      public ColumnView()
+      {
+         InitializeComponent();
+      }
+   }
 }
