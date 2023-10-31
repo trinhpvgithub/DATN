@@ -4,10 +4,9 @@ namespace TRINHTOOL.Views
 {
    public partial class TRINHTOOLView
    {
-      public TRINHTOOLView(TRINHTOOLViewModel viewModel)
+      public TRINHTOOLView()
       {
          InitializeComponent();
-         DataContext = viewModel;
       }
    }
 }

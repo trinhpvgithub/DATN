@@ -35,6 +35,7 @@ namespace TRINHTOOL.ViewModels.SubViewModels
       private Level _selectedTopLevel;
 
       public XYZ Origin;
+      public XYZ _origin;
 
       private List<Family> _families;
 
@@ -282,8 +283,11 @@ namespace TRINHTOOL.ViewModels.SubViewModels
       public void GetData()
       {
          //Level
-         Levels = new FilteredElementCollector(AC.Document).OfClass(typeof(Level)).Cast<Level>()
-             .OrderBy(x => x.Elevation).ToList();
+         Levels = new FilteredElementCollector(AC.Document)
+            .OfClass(typeof(Level))
+            .Cast<Level>()
+            .OrderBy(x => x.Elevation)
+            .ToList();
 
          if (Levels.Count > 1)
          {
@@ -350,19 +354,19 @@ namespace TRINHTOOL.ViewModels.SubViewModels
 
       public void ModelColumn()
       {
-         //ParentViewModel.ModelFromCadMainView.Hide();
-         //try
-         //{
-         //    _origin = AC.Selection.PickPoint();
-         //}
-         //catch (Exception e)
-         //{
-         //    MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTREVIT, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
-         //}
-
-         if (Origin != null)
+         ParentViewModel.TRINHTOOLView.Hide();
+         try
          {
-            Origin = new XYZ(Origin.X, Origin.Y, 0);
+            _origin = AC.Selection.PickPoint();
+         }
+         catch (Exception e)
+         {
+            MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTREVIT, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
+         }
+
+         if (_origin != null)
+         {
+            _origin = new XYZ(_origin.X, _origin.Y, 0);
             var max = ColumnInfoCollections.Select(x => x.ColumnInfos.Count).Sum();
             var progressView = new progressbar();
             progressView.Show();
@@ -399,7 +403,7 @@ namespace TRINHTOOL.ViewModels.SubViewModels
 
                      tx.SetFailureHandlingOptions(failOpt);
 
-                     var center = columnInfo.Center.Add(Origin - cadOrigin.ToXyz());
+                     var center = columnInfo.Center.Add(_origin - cadOrigin.ToXyz());
 
                      var fs = columnInfoCollection.ElementType as FamilySymbol;
                      if (fs.IsActive == false)
