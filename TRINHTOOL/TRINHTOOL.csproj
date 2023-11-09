@@ -56,6 +56,12 @@
         <StartArguments>/language ENG</StartArguments>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Remove="ViewModels\Objects\**" />
+      <EmbeddedResource Remove="ViewModels\Objects\**" />
+      <None Remove="ViewModels\Objects\**" />
+      <Page Remove="ViewModels\Objects\**" />
+    </ItemGroup>
+    <ItemGroup>
       <None Remove="Views\trinh.jpg" />
     </ItemGroup>
 
@@ -70,10 +76,6 @@
         <Using Include="Nice3point.Revit.Extensions" />
         <Using Include="Nice3point.Revit.Toolkit.Utils" />
         <Using Include="JetBrains.Annotations" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ViewModels\Objects\" />
     </ItemGroup>
 
     <ItemGroup>

@@ -195,7 +195,7 @@ namespace TRINHTOOL.ViewModels.SubViewModels
                {
                   listPolyline.Add(s);
                }
-               if (s.EntityName == "AcDbText")
+               if (s.EntityName == "AcDbMText")
                {
                   listText.Add(s);
                }

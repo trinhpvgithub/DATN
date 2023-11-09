@@ -50,6 +50,10 @@
          <DataTemplate DataType="{x:Type subViewModel:ColumnViewModel}">
             <subView:ColumnView />
          </DataTemplate>
+         <DataTemplate DataType="{x:Type subViewModel:BeamViewModel}">
+            <subView:BeamView/>
+
+         </DataTemplate>
 
       </ResourceDictionary>
    </FrameworkElement.Resources>
