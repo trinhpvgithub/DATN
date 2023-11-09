@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BimSpeedModelFromCad.ModelFromCad.View.SubViews
+namespace TRINHTOOL.Views.SubViews
 {
-    /// <summary>
-    /// Interaction logic for CreateBeamView.xaml
-    /// </summary>
-    public partial class CreateBeamView : UserControl
-    {
-        public CreateBeamView()
-        {
-            InitializeComponent();
-        }
-    }
+   /// <summary>
+   /// Interaction logic for FloorView.xaml
+   /// </summary>
+   public partial class FloorView : UserControl
+   {
+      public FloorView()
+      {
+         InitializeComponent();
+      }
+   }
 }

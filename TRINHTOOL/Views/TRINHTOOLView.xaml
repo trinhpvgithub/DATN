@@ -5,6 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:viewModel="clr-namespace:TRINHTOOL.ViewModels"
+    xmlns:subViewModel="clr-namespace:TRINHTOOL.ViewModels.SubViewModels"
+    xmlns:subView="clr-namespace:TRINHTOOL.Views.SubViews"
     mc:Ignorable="d"
     SnapsToDevicePixels="True"
     WindowStartupLocation="CenterScreen"
@@ -41,6 +43,17 @@
                </Setter.Value>
             </Setter>
          </Style>
+         <!--<DataTemplate DataType="x:Type subViewModel:ColumnViewModel">
+            <subView:ColumnView/>
+         </DataTemplate>-->
+
+         <DataTemplate DataType="{x:Type subViewModel:ColumnViewModel}">
+            <subView:ColumnView />
+         </DataTemplate>
+         <DataTemplate DataType="{x:Type subViewModel:BeamViewModel}">
+            <subView:BeamView/>
+
+         </DataTemplate>
 
       </ResourceDictionary>
    </FrameworkElement.Resources>
@@ -52,17 +65,17 @@
                   DockPanel.Dock="Left">
          <StackPanel Orientation="Vertical" Name="TabContainer">
             <Button 
-                    Visibility="Collapsed"
-                    Name="ButtonGrid"
-                    Style="{StaticResource CustomButtonStyle}"
-                    BorderThickness="0"
-                    Width="Auto"
-                    Height="45"
-                    HorizontalContentAlignment="Left"
-                    HorizontalAlignment="Stretch"
-                    Margin="2"
-                    Command="{Binding UpdateViewCommand}"
-                    CommandParameter="CreateGrid" >
+                  Visibility="Collapsed"
+                  Name="ButtonGrid"
+                  Style="{StaticResource CustomButtonStyle}"
+                  BorderThickness="0"
+                  Width="Auto"
+                  Height="45"
+                  HorizontalContentAlignment="Left"
+                  HorizontalAlignment="Stretch"
+                  Margin="2"
+                  Command="{Binding UpdateViewCommand}"
+                  CommandParameter="CreateGrid" >
                <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
