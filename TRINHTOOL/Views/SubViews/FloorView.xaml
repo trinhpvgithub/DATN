@@ -14,26 +14,26 @@
          </ResourceDictionary.MergedDictionaries>
 
          <Style TargetType="Button"
-                   BasedOn="{StaticResource ResourceKey=ButtonStyle}" />
+          BasedOn="{StaticResource ResourceKey=ButtonStyle}" />
          <Style TargetType="RadioButton"
-                   BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" />
+          BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" />
          <!--<Style TargetType="GroupBox"
-                   BasedOn="{StaticResource ResourceKey=GroupBoxStyle}" />-->
+          BasedOn="{StaticResource ResourceKey=GroupBoxStyle}" />-->
          <Style TargetType="ComboBox"
-                   BasedOn="{StaticResource ResourceKey=ComboBoxStyle}">
+          BasedOn="{StaticResource ResourceKey=ComboBoxStyle}">
             <Setter Property="Height"
-                        Value="40" />
+               Value="35" />
          </Style>
          <Style TargetType="ToggleButton"
-                   BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" />
+          BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" />
          <Style TargetType="TextBox"
-                   BasedOn="{StaticResource ResourceKey=TextBoxStyle}" />
+          BasedOn="{StaticResource ResourceKey=TextBoxStyle}" />
          <Style TargetType="ProgressBar"
-                   BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" />
+          BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" />
          <Style x:Key="CenterGridHeaderStyle"
-                   TargetType="DataGridColumnHeader">
+          TargetType="DataGridColumnHeader">
             <Setter Property="HorizontalContentAlignment"
-                        Value="Center" />
+               Value="Center" />
          </Style>
       </ResourceDictionary>
    </FrameworkElement.Resources>
@@ -120,8 +120,8 @@
                              Width="112"
                              Height="26"
                              Margin="5,5,5,5"
-                             Background="Gray"
                              Foreground="Black"
+                             Background="LightGray"
                              HorizontalAlignment="Right"
                              Command="{Binding SelectFromCad}"
                     ></Button>
@@ -130,7 +130,7 @@
                             Width="68"
                             IsCancel="True"
                             Height="26"
-                            Background="Gray"
+                            Background="LightGray"
                             Foreground="Black"
                             Margin="5,5,0,5"
                             HorizontalAlignment="Right"
