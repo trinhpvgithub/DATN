@@ -43,11 +43,23 @@ namespace TRINHTOOL.ViewModels
             OnPropertyChanged();
          }
       }
+      public FloorViewModel FloorViewModel { get; set; }
+      public bool _floorCreatable;
+      public bool FloorCreatable
+      {
+         get => _floorCreatable;
+         set
+         {
+            _floorCreatable = value;
+            OnPropertyChanged();
+         }
+      }
       public RelayCommand UpdateViewCommand { get; set; }
       public TRINHTOOLViewModel()
       {
          ColumnViewModel= new ColumnViewModel() { ParentViewModel = this };
          BeamViewModel=new BeamViewModel() { ParentViewModel=this};
+         FloorViewModel=new FloorViewModel() { ParentViewModel=this};
          UpdateViewCommand = new RelayCommand(ChangeView);
          SelectedViewModel = ColumnViewModel;
       }
@@ -69,6 +81,11 @@ namespace TRINHTOOL.ViewModels
          {
             SelectedViewModel = BeamViewModel;
             TRINHTOOLView.ButtonBeam.Background = Brushes.LightBlue;
+         }
+         else if (obi.ToString() == "CreateFloor")
+         {
+            SelectedViewModel = FloorViewModel;
+            TRINHTOOLView.ButtonFloor.Background = Brushes.LightBlue;
          }
       }
    }
