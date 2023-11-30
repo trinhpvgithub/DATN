@@ -52,9 +52,10 @@
          </DataTemplate>
          <DataTemplate DataType="{x:Type subViewModel:BeamViewModel}">
             <subView:BeamView/>
-
          </DataTemplate>
-
+         <DataTemplate DataType="{x:Type subViewModel:FloorViewModel}">
+            <subView:FloorView/>
+         </DataTemplate>
       </ResourceDictionary>
    </FrameworkElement.Resources>
    <DockPanel Dock="Top"
