@@ -13,21 +13,23 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TRINHTOOL.Model.FloorModel;
 using TRINHTOOL.Model;
+using TRINHTOOL.ViewModels.SubViewModels;
+using TRINHTOOL.Floor.Model;
 using TRINHTOOL.Views;
+using TRINHTOOL.Floor.View;
 
-namespace TRINHTOOL.ViewModels.SubViewModels
+namespace TRINHTOOL.Floor.ViewModel
 {
-   public class FloorViewModel :ViewModelBase
+   public class FloorViewModel:ViewModelBase
    {
+      public FloorView MainView { get; set; }
       public ObservableCollection<FloorInfoCollection> FloorInfoCollections { get; set; } = new();
 
       public List<FloorInfoCollection> floorInfoCollections = new();
 
       public XyzData CadFloorOrigin { get; set; }
       public int Offset { get; set; } = -50;
-      public TRINHTOOLViewModel ParentViewModel { get; set; }
 
       public List<List<XyzData>> ListPoint = new();
 
@@ -61,7 +63,6 @@ namespace TRINHTOOL.ViewModels.SubViewModels
       public void SelectFloorFromCad()
       {
          //_pileInfoCollection.Clear();
-         ParentViewModel.TRINHTOOLView.Hide();
 
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
@@ -148,7 +149,6 @@ namespace TRINHTOOL.ViewModels.SubViewModels
          });
 
          ListPoint.Clear();
-         ParentViewModel.TRINHTOOLView.ShowDialog();
       }
 
       //Model Floor
@@ -160,7 +160,6 @@ namespace TRINHTOOL.ViewModels.SubViewModels
          }
 
 
-         ParentViewModel.TRINHTOOLView.Hide();
          try
          {
             Origin = AC.Selection.PickPoint();
@@ -255,7 +254,6 @@ namespace TRINHTOOL.ViewModels.SubViewModels
             progressView.Close();
          }
 
-         ParentViewModel.TRINHTOOLView.ShowDialog();
 
       }
 
