@@ -129,7 +129,7 @@ namespace TRINHTOOL.Beam.ViewModel
       public void SelectBeam()
       {
          //beamInfoCollections.Clear();
-
+         MainView.Hide();
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
          dynamic doc
@@ -238,12 +238,14 @@ namespace TRINHTOOL.Beam.ViewModel
             GetBeamInfoCollection();
             OnPropertyChanged(nameof(BeamInfoCollections));
          }
+         MainView.ShowDialog();
       }
 
 
       //Model Beam
       public void ModelBeams(object obj)
       {
+         MainView.Hide();
          if (obj is Window w)
          {
             w.Close();
@@ -332,6 +334,7 @@ namespace TRINHTOOL.Beam.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
+            MainView.ShowDialog();
       }
 
       //GetBeamInfoCollections

@@ -13,9 +13,11 @@ using TRINHTOOL.Floor;
 using Autodesk.Revit.UI.Events;
 using HcBimUtils.DocumentUtils;
 using Newtonsoft.Json;
+using TRINHTOOL.Grid;
 
 namespace TRINHTOOL
 {
+   [UsedImplicitly]
    public class Application :ExternalApplication
    {
       public override void OnStartup()
@@ -27,6 +29,7 @@ namespace TRINHTOOL
       public void CreateRibbon()
       {
          var panelCad = Application.CreatePanel("Cad To Revit", TAB_NAME);
+         var grid = panelCad.AddPushButton<GridCmd>("CreateGrid");
          var beam = panelCad.AddPushButton<BeamCmd>("CreateBeam");
          var column= panelCad.AddPushButton<ColumnCmd>("CreateColumn");
          var floor = panelCad.AddPushButton<FloorCmd>("CreateFloor");

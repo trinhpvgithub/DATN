@@ -63,7 +63,7 @@ namespace TRINHTOOL.Floor.ViewModel
       public void SelectFloorFromCad()
       {
          //_pileInfoCollection.Clear();
-
+         MainView.Hide();
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
          dynamic doc
@@ -149,11 +149,13 @@ namespace TRINHTOOL.Floor.ViewModel
          });
 
          ListPoint.Clear();
+         MainView.ShowDialog();
       }
 
       //Model Floor
       public void ModelFloor(object obj)
       {
+         MainView.Hide();
          if (obj is Window w)
          {
             w.Close();
@@ -254,7 +256,7 @@ namespace TRINHTOOL.Floor.ViewModel
             progressView.Close();
          }
 
-
+         MainView.ShowDialog();
       }
 
       //GetInfoCollection
