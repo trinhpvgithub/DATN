@@ -1,9 +1,9 @@
 ﻿<RevitAddIns>
-    <AddIn Type="Command">
+    <AddIn Type="Application">
         <Name>TRINHTOOL</Name>
         <Assembly>TRINHTOOL/TRINHTOOL.dll</Assembly>
         <AddInId>6BB86309-2C8D-4F7D-A5D4-12C3114DC13D</AddInId>
-        <FullClassName>TRINHTOOL.Commands.Command</FullClassName>
+        <FullClassName>TRINHTOOL.Application</FullClassName>
         <Text>TRINHTOOL</Text>
         <VendorId>Development</VendorId>
         <VendorDescription></VendorDescription>
