@@ -18,7 +18,7 @@ namespace TRINHTOOL.TrinhUtils
          XYZ source = line.Direction.Normalize();
          var num = Math.Abs((p - xYZ).DotProduct(source));
          var nm = source.CrossProduct(XYZ.BasisZ);
-         if (nm.DotProduct((p - xYZ).Normalize()) < 0) nm = -nm;
+         if (nm.DotProduct((p - xYZ).Normalize()) > 0) nm = -nm;
          var l = p.CreateLine(p.Add(nm * 0.5.MeterToFoot()));
          if (l.Intersect(line) == SetComparisonResult.Disjoint)
          {
