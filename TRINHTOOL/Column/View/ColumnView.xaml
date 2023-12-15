@@ -1,259 +1,256 @@
-﻿<Window x:Class="TRINHTOOL.Column.View.ColumnView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TRINHTOOL.Column.View"
-        xmlns:WPFUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
-        mc:Ignorable="d"
-        Title="ColumnView" Height="450" Width="800">
+﻿<Window
+    x:Class="TRINHTOOL.Column.View.ColumnView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:WPFUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TRINHTOOL.Column.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ColumnView"
+    Width="800"
+    Height="450"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
    <FrameworkElement.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="pack://application:,,,/TRINHTOOL;component/Resources/ResourceString.en.xaml" />
             <ResourceDictionary Source="pack://application:,,,/HcBimUtils;component/WPFUtils/ResourceDictionaries/Styles.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.teal.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
          </ResourceDictionary.MergedDictionaries>
 
-         <Style TargetType="Button"
-                   BasedOn="{StaticResource ResourceKey=ButtonStyle}" />
-         <Style TargetType="RadioButton"
-                   BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" />
-         <!--<Style TargetType="GroupBox"
-                   BasedOn="{StaticResource ResourceKey=GroupBoxStyle}" />-->
-         <Style TargetType="ComboBox"
-                   BasedOn="{StaticResource ResourceKey=ComboBoxStyle}">
-            <Setter Property="Height"
-                        Value="35" />
+         <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button" />
+         <Style BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" TargetType="RadioButton" />
+         <Style BasedOn="{StaticResource MaterialDesignCardGroupBox}" TargetType="GroupBox" />
+         <Style BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}" TargetType="ComboBox">
+            <Setter Property="Height" Value="auto" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
          </Style>
-         <Style TargetType="ToggleButton"
-                   BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" />
-         <Style TargetType="TextBox"
-                   BasedOn="{StaticResource ResourceKey=TextBoxStyle}" />
-         <Style TargetType="ProgressBar"
-                   BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" />
-         <Style x:Key="CenterGridHeaderStyle"
-                   TargetType="DataGridColumnHeader">
-            <Setter Property="HorizontalContentAlignment"
-                        Value="Center" />
+         <Style BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" TargetType="ToggleButton" />
+         <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox" />
+         <Style BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" TargetType="ProgressBar" />
+         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+         </Style>
+         <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="auto" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="5,15,10,0" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Bold" />
          </Style>
       </ResourceDictionary>
    </FrameworkElement.Resources>
    <Grid Margin="5,5,5,5">
       <DockPanel LastChildFill="True">
-         <GroupBox Margin="0,0,0,5"
-                      DockPanel.Dock="Top"
-                      Header="{DynamicResource MODELFROMCAD_SETTINGS}">
+         <GroupBox Margin="0,0,0,5" DockPanel.Dock="Top">
+            <GroupBox.Header>
+               <TextBlock
+                        Margin="0"
+                        FontWeight="Bold"
+                        Text="{DynamicResource MODELFROMCAD_SETTINGS}" />
+            </GroupBox.Header>
             <Grid Margin="4">
                <Grid.RowDefinitions>
-                  <RowDefinition Height="52"></RowDefinition>
-                  <RowDefinition Height="52"></RowDefinition>
-                  <RowDefinition Height="52"></RowDefinition>
-                  <RowDefinition Height="52"></RowDefinition>
+                  <RowDefinition Height="52" />
+                  <RowDefinition Height="52" />
+                  <RowDefinition Height="52" />
+                  <RowDefinition Height="52" />
                </Grid.RowDefinitions>
 
-               <Grid Margin="4" Grid.Row="0"  >
+               <Grid Grid.Row="0" Margin="4">
                   <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="70"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
-                  <TextBlock 
-                                   Grid.Column="0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                  Text="{DynamicResource MODELFROMCAD_FAMILY}"></TextBlock>
-                  <ComboBox
-                                    Grid.Column="1"
-                                    SelectedItem="{Binding FamilySelected}"
-                                    DisplayMemberPath="Name"
-                                    ItemsSource="{Binding Families}"
-                                  ></ComboBox>
-               </Grid>
-
-               <Grid Margin="4" Grid.Row="1">
-                  <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="70"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
-                     <ColumnDefinition Width="70"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
-                  </Grid.ColumnDefinitions>
-                  <TextBlock 
+                  <TextBlock
                             Grid.Column="0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Text="{DynamicResource MODELFROMCAD_WIDTH}">:</TextBlock>
-                  <ComboBox 
-                            SelectedItem="{Binding SelectedWidthParameter}"
-                            ItemsSource="{Binding SelectedFamilyParameters}"
+                            Text="{DynamicResource MODELFROMCAD_FAMILY}" />
+                  <ComboBox
                             Grid.Column="1"
-                           
-                            ></ComboBox>
+                            materialDesign:HintAssist.Hint="Family"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Families}"
+                            SelectedItem="{Binding FamilySelected}" />
+               </Grid>
 
-                  <TextBlock 
-                            Grid.Column="2"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Text="{DynamicResource MODELFROMCAD_HIEGHT}">:</TextBlock>
-                  <ComboBox 
-                            SelectedItem="{Binding SelectedHeightParameter}"
-                            Grid.Column="3"
+               <Grid Grid.Row="1" Margin="4">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0" Text="{DynamicResource MODELFROMCAD_WIDTH}">
+                            :
+                  </TextBlock>
+                  <ComboBox
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Width"
                             ItemsSource="{Binding SelectedFamilyParameters}"
-                            ></ComboBox>
+                            SelectedItem="{Binding SelectedWidthParameter}" />
+
+                  <TextBlock Grid.Column="2" Text="{DynamicResource MODELFROMCAD_HIEGHT}">
+                            :
+                  </TextBlock>
+                  <ComboBox
+                            Grid.Column="3"
+                            materialDesign:HintAssist.Hint="Height"
+                            ItemsSource="{Binding SelectedFamilyParameters}"
+                            SelectedItem="{Binding SelectedHeightParameter}" />
                </Grid>
 
-               <Grid Margin="4" Grid.Row="2">
+               <Grid Grid.Row="2" Margin="4">
                   <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="80"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
-                     <ColumnDefinition Width="70"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
-                  <TextBlock 
-                                   Grid.Column="0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Text="{DynamicResource MODELFROMCAD_BASELEVEL}"></TextBlock>
-                  <ComboBox 
-                                  DisplayMemberPath="Name"
-                                  ItemsSource="{Binding Levels}"
-                                  SelectedItem="{Binding SelectedBaseLevel}"
-                                  Grid.Column="1"
-                                  ></ComboBox>
+                  <TextBlock Grid.Column="0" Text="{DynamicResource MODELFROMCAD_BASELEVEL}" />
+                  <ComboBox
+                            Grid.Column="1"
+                            materialDesign:HintAssist.Hint="Base Level"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Levels}"
+                            SelectedItem="{Binding SelectedBaseLevel}" />
 
-                  <TextBlock 
-                                   Grid.Column="2"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Text="{DynamicResource MODELFROMCAD_TOPLEVEL}"></TextBlock>
-                  <ComboBox 
-                                  DisplayMemberPath="Name"
-                                  Grid.Column="3"
-                                  ItemsSource="{Binding Levels}"
-                                  SelectedItem="{Binding SelectedTopLevel}"
-                                  ></ComboBox>
+                  <TextBlock Grid.Column="2" Text="{DynamicResource MODELFROMCAD_TOPLEVEL}" />
+                  <ComboBox
+                            Grid.Column="3"
+                            materialDesign:HintAssist.Hint="Top Level"
+                            DisplayMemberPath="Name"
+                            ItemsSource="{Binding Levels}"
+                            SelectedItem="{Binding SelectedTopLevel}" />
                </Grid>
 
-               <Grid Margin="4" Grid.Row="3">
+               <Grid Grid.Row="3" Margin="4">
                   <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="80"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
-                     <ColumnDefinition Width="70"></ColumnDefinition>
-                     <ColumnDefinition></ColumnDefinition>
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
+                     <ColumnDefinition Width="85" />
+                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
-                  <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Text="{DynamicResource MODELFROMCAD_BASEOFFSET}"></TextBlock>
-                  <TextBox Text="{Binding BaseOffset}"
-                                 Grid.Column="1"
-                                 Margin="2"
-                                 Height="26"
-                                 TextAlignment="Center"
-                                 VerticalContentAlignment="Center"
-                        ></TextBox>
-
                   <TextBlock
-                                   Grid.Column="2"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   Text="{DynamicResource MODELFROMCAD_TOPOFFSET}" Margin="3,0,0,0"/>
-                  <TextBox Text="{Binding TopOffset}"
-                                 Grid.Column="3"
-                                 Margin="2"
-                                 Height="26"
-                                 TextAlignment="Center"
-                                 VerticalContentAlignment="Center"></TextBox>
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Text="{DynamicResource MODELFROMCAD_BASEOFFSET}" />
+                  <TextBox
+                            Grid.Column="1"
+                            Margin="2"
+                            VerticalContentAlignment="Center"
+                            materialDesign:HintAssist.Hint="Base Offset"
+                            Text="{Binding BaseOffset}"
+                            TextAlignment="Center" />
+
+                  <TextBlock Grid.Column="2" Text="{DynamicResource MODELFROMCAD_TOPOFFSET}" />
+                  <TextBox
+                            Grid.Column="3"
+                            Margin="2"
+                            VerticalContentAlignment="Center"
+                            materialDesign:HintAssist.Hint="Top Offset"
+                            Text="{Binding TopOffset}"
+                            TextAlignment="Center" />
                </Grid>
             </Grid>
          </GroupBox>
 
-         <Grid Height="55"
-                  DockPanel.Dock="Bottom">
-            <WPFUtils:FooterLeft></WPFUtils:FooterLeft>
-            <StackPanel HorizontalAlignment="Right"
-                            Orientation="Horizontal"
-                            Height="40"
-                            DockPanel.Dock="Bottom">
-               <Button  Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
-                            Background="LightGray"    
-                             Foreground="Black"                             
-                             Width="112"
-                             Height="26"
-                             Margin="5,5,5,5"
-                             HorizontalAlignment="Right"
-                             Command="{Binding SelectFromCad}"
-                    ></Button>
-               <Button Name="BtClose"
-                            Content="{DynamicResource COMMON_BUTTON_CREATE}"
-                            Background="LightGray"   
-                             Foreground="Black"                            
-                            Width="68"
-                            IsCancel="True"
-                            Height="26"
-                            Margin="5,5,0,5"
-                            HorizontalAlignment="Right"
-                            Command="{Binding Create}"></Button>
+         <Grid Height="55" DockPanel.Dock="Bottom">
+            <WPFUtils:FooterLeft />
+            <StackPanel
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    DockPanel.Dock="Bottom"
+                    Orientation="Horizontal">
+               <Button
+                        Width="150"
+                        Height="30"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding SelectFromCad}"
+                        Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
+                        Foreground="Black" />
+               <Button
+                        Name="BtClose"
+                        Width="120"
+                        Height="30"
+                        Margin="5,5,0,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Create}"
+                        Content="{DynamicResource COMMON_BUTTON_CREATE}"
+                        Foreground="Black"
+                        IsCancel="True" />
 
             </StackPanel>
          </Grid>
 
-         <DataGrid BorderBrush="BlueViolet"
-                      RowHeight="23"
-                      MinHeight="150"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      SelectionMode="Extended"
-                      ItemsSource="{Binding ColumnInfoCollections,Mode=TwoWay}">
+         <DataGrid
+                MinHeight="150"
+                AutoGenerateColumns="False"
+                BorderBrush="Teal"
+                CanUserAddRows="False"
+                ItemsSource="{Binding ColumnInfoCollections, Mode=TwoWay}"
+                RowHeight="23"
+                SelectionMode="Extended">
             <DataGrid.CellStyle>
                <Style TargetType="DataGridCell">
-                  <Setter Property="TextBlock.TextAlignment"
-                                Value="Center" />
+                  <Setter Property="TextBlock.TextAlignment" Value="Center" />
                </Style>
             </DataGrid.CellStyle>
             <DataGrid.ColumnHeaderStyle>
                <Style TargetType="DataGridColumnHeader">
-                  <Setter Property="HorizontalContentAlignment"
-                                Value="Center" />
+                  <Setter Property="HorizontalContentAlignment" Value="Center" />
                </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
 
-               <DataGridTextColumn 
-                                        Width="*"
-                                        Binding="{Binding Path= Width}"
-                                        IsReadOnly="False"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+               <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Width}"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        IsReadOnly="False">
                   <DataGridTextColumn.Header>
-                     <TextBlock Text="{DynamicResource MODELFROMCAD_WIDTH}"></TextBlock>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_WIDTH}" />
                   </DataGridTextColumn.Header>
                </DataGridTextColumn>
 
-               <DataGridTextColumn 
-                                        Width="*"
-                                        IsReadOnly="False"
-                                        Binding="{Binding Path= Height}"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+               <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Height}"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        IsReadOnly="False">
                   <DataGridTextColumn.Header>
-                     <TextBlock Text="{DynamicResource MODELFROMCAD_HIEGHT}"></TextBlock>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_HIEGHT}" />
                   </DataGridTextColumn.Header>
                </DataGridTextColumn>
 
-               <DataGridTextColumn 
-                                        Width="*"
-                                        Binding="{Binding Path= Number}"
-                                        IsReadOnly="False"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+               <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Number}"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        IsReadOnly="False">
                   <DataGridTextColumn.Header>
-                     <TextBlock Text="{DynamicResource MODELFROMCAD_NUMBER}"></TextBlock>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_NUMBER}" />
                   </DataGridTextColumn.Header>
                </DataGridTextColumn>
-               <DataGridTextColumn 
-                                        Width="*"
-                                        Binding="{Binding Path= Text}"
-                                        IsReadOnly="False"
-                                        HeaderStyle="{StaticResource CenterGridHeaderStyle}">
+               <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Path=Text}"
+                        HeaderStyle="{StaticResource CenterGridHeaderStyle}"
+                        IsReadOnly="False">
                   <DataGridTextColumn.Header>
-                     <TextBlock Text="{DynamicResource MODELFROMCAD_TEXT}"></TextBlock>
+                     <TextBlock Text="{DynamicResource MODELFROMCAD_TEXT}" />
                   </DataGridTextColumn.Header>
                </DataGridTextColumn>
             </DataGrid.Columns>

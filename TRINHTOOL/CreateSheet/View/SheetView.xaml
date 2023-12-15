@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TRINHTOOL.CreateSheet.View"
         xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
         mc:Ignorable="d"
-        Title="SheetView" Height="350" Width="300">
+        Title="SheetView" Height="360" Width="300">
    <FrameworkElement.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
@@ -52,6 +52,7 @@
                   <RowDefinition Height="30"></RowDefinition>
                   <RowDefinition Height="55"></RowDefinition>
                   <RowDefinition Height="55"></RowDefinition>
+                  <RowDefinition Height="55"></RowDefinition>
                </Grid.RowDefinitions>
 
                <Grid Margin="4" Grid.Row="0">
@@ -69,7 +70,7 @@
                             DisplayMemberPath="Name"
                             Grid.Column="1"
                             ItemsSource="{Binding Levels}">
-                     
+
                   </ComboBox>
                </Grid>
                <Grid Margin="4" Grid.Row="1">
@@ -80,7 +81,7 @@
                   <CheckBox Content="{DynamicResource MODELFROMCAD_ALL}"
                             Grid.Column="1"
                             Name="cb_levels">
-                  
+
                   </CheckBox>
                </Grid>
 
@@ -105,21 +106,37 @@
                <Grid Margin="4" Grid.Row="3">
                   <Grid.ColumnDefinitions>
                      <ColumnDefinition Width="90"></ColumnDefinition>
-                     <ColumnDefinition ></ColumnDefinition>
+                     <ColumnDefinition Width="31*" ></ColumnDefinition>
+                     <ColumnDefinition Width="12*"/>
                   </Grid.ColumnDefinitions>
-                  <TextBlock 
-                 Grid.Column="0"
+                  <TextBlock
                  HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                Text="{DynamicResource MODELFROMCAD_VIEW}"></TextBlock>
+                Text="{DynamicResource MODELFROMCAD_VIEW}"/>
                   <ComboBox 
                  DisplayMemberPath="Name"
                  SelectedItem="{Binding SelectedViewTemplate}"
                  Grid.Column="1"
-                 ItemsSource="{Binding ViewTemplate}"
+                 ItemsSource="{Binding ViewTemplate}" Grid.ColumnSpan="2" Margin="5,6,5,6"
                  ></ComboBox>
 
                </Grid>
+               <!--<Grid Margin="4" Grid.Row="4">
+                  <Grid.ColumnDefinitions>
+                     <ColumnDefinition Width="90"></ColumnDefinition>
+                     <ColumnDefinition Width="31*" ></ColumnDefinition>
+                     <ColumnDefinition Width="12*"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock
+  HorizontalAlignment="Left"
+ Text="{DynamicResource MODELFROMCAD_SCALE}"/>
+                  <ComboBox 
+  DisplayMemberPath="Name"
+  SelectedItem="{Binding SelectedScale}"
+  Grid.Column="1"
+  ItemsSource="{Binding Scale}" Grid.ColumnSpan="2" Margin="5,6,5,6"
+  ></ComboBox>
+
+               </Grid>-->
 
             </Grid>
          </GroupBox>

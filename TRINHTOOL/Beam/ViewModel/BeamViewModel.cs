@@ -134,7 +134,7 @@ namespace TRINHTOOL.Beam.ViewModel
 
          dynamic doc
              = a.Documents.Application.ActiveDocument;
-
+         
          string[] arrPoint = null;
          try
          {
@@ -239,6 +239,7 @@ namespace TRINHTOOL.Beam.ViewModel
             OnPropertyChanged(nameof(BeamInfoCollections));
          }
          MainView.ShowDialog();
+         MainView.Focus();
       }
 
 

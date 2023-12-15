@@ -41,4 +41,5 @@
 <system:String x:Key="MODELFROMCAD_TITLEBOCK">TitleBlock :</system:String>
 <system:String x:Key="MODELFROMCAD_VIEW">ViewTemplate :</system:String>
    <system:String x:Key="MODELFROMCAD_ALL">All Level</system:String>
+   <system:String x:Key="MODELFROMCAD_SCALE">Scale :</system:String>
 </ResourceDictionary>
