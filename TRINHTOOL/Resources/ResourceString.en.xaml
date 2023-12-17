@@ -22,6 +22,7 @@
 <system:String x:Key="MODELFROMCAD_HIEGHT">Height</system:String>
 <system:String x:Key="MODELFROMCAD_LENGTH">Length</system:String>
 <system:String x:Key="MODELFROMCAD_LEVEL">Level:</system:String>
+<system:String x:Key="MODELFROMCAD_LAYER">Layer:</system:String>
 <system:String x:Key="MODELFROMCAD_MARK">Mark</system:String>
 <system:String x:Key="MODELFROMCAD_MESSAGE_PICKPOINTCAD">You canceled the pick</system:String>
 <system:String x:Key="MODELFROMCAD_MESSAGE_PICKPOINTREVIT">You have not selected coordinates in revit please choose again</system:String>

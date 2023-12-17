@@ -21,6 +21,7 @@ using TRINHTOOL.Beam.Model;
 using HcBimUtils.MoreLinq;
 using TRINHTOOL.Views;
 using TRINHTOOL.Beam.View;
+using System.Security.AccessControl;
 
 namespace TRINHTOOL.Beam.ViewModel
 {
@@ -69,7 +70,19 @@ namespace TRINHTOOL.Beam.ViewModel
          }
 
       }
+      public List<string> Layers { get; set; }
 
+      private string _selectedLayer;
+
+      public string SelectedLayer
+      {
+         get { return _selectedLayer; }
+         set
+         {
+            _selectedLayer = value;
+            OnPropertyChanged();
+         }
+      }
       public Family FamilySelected
       {
          get => _selectedFamily;
@@ -113,6 +126,7 @@ namespace TRINHTOOL.Beam.ViewModel
       public RelayCommand SelectFromCad { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand Ob{ get; set; }
 
       //Constructor
       public BeamViewModel()
@@ -120,6 +134,7 @@ namespace TRINHTOOL.Beam.ViewModel
          GetData();
          SelectFromCad = new RelayCommand(x => SelectBeam());
          Create = new RelayCommand(ModelBeams);
+         Ob = new RelayCommand(x=>GetLayer());
          SelectedLevel = Levels.FirstOrDefault();
          FamilySelected = _families.FirstOrDefault();
       }
@@ -134,7 +149,7 @@ namespace TRINHTOOL.Beam.ViewModel
 
          dynamic doc
              = a.Documents.Application.ActiveDocument;
-         
+
          string[] arrPoint = null;
          try
          {
@@ -172,11 +187,40 @@ namespace TRINHTOOL.Beam.ViewModel
 
             List<dynamic> listLine = new List<dynamic>();
 
+#if true //Tét
+            List<CadData> cadDatas = new List<CadData>();
+            foreach (var l in newset)
+            {
+               cadDatas.Add(new CadData() { CadObject = l, LayerName = l.Layer });
+            }
+            var groupCadData = cadDatas.GroupBy(x => x.LayerName);
+            var listLayer = new List<string>();
+            foreach (var item in groupCadData)
+            {
+               listLayer.Add(item.Key);
+            }
+            Layers = listLayer;
+            var list = new List<CadData>();
+            foreach (var item in groupCadData)
+            {
+               if (item.Key == SelectedLayer)
+               {
+                  list = item.ToList();
+               }
+            }
+            var ob = new List<dynamic>();
+            foreach (var o in list)
+            {
+               ob.Add(o.CadObject);
+            }
+#endif
             //cot tron
-            foreach (dynamic s in newset)
+            foreach (dynamic s in ob)
             {
                if (s.EntityName == "AcDbLine")
                {
+                  var c = s.EntityName;
+                  var b = s.Layer;
                   listLine.Add(s);
                }
                if (s.EntityName == "AcDbText")
@@ -335,7 +379,7 @@ namespace TRINHTOOL.Beam.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
-            MainView.ShowDialog();
+         MainView.ShowDialog();
       }
 
       //GetBeamInfoCollections
@@ -457,6 +501,67 @@ namespace TRINHTOOL.Beam.ViewModel
              .OrderBy(x => x.Elevation).ToList();
          //Family
          Families = new FilteredElementCollector(AC.Document).OfCategory(BuiltInCategory.OST_StructuralFraming).OfClass(typeof(FamilySymbol)).Cast<FamilySymbol>().Select(x => x.Family).Where(x => x.StructuralMaterialType != StructuralMaterialType.Steel).DistinctBy(x => x.Id).OrderBy(x => x.Name).ToList();
+      }
+      public void GetLayer()
+      {
+         MainView.Hide();
+         dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
+
+         dynamic doc
+             = a.Documents.Application.ActiveDocument;
+
+         string[] arrPoint = null;
+         try
+         {
+            var pointCad = doc.Utility.GetPoint(Type.Missing, "Select point: ");
+            arrPoint = ((IEnumerable)pointCad).Cast<object>()
+                .Select(x => x.ToString())
+                .ToArray();
+         }
+         catch (Exception e)
+         {
+            MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
+         }
+
+         if (arrPoint != null)
+         {
+            double[] arrPoint1 = new double[3];
+
+            int i = 0;
+
+            foreach (var item in arrPoint)
+            {
+               arrPoint1[i] = Convert.ToDouble(item);
+               i++;
+            }
+
+            CadBeamOrigin = new XyzData(arrPoint1[0], arrPoint1[1], arrPoint1[2]);
+            var newset = doc.SelectionSets.Add(Guid.NewGuid().ToString());
+            newset.SelectOnScreen();
+            if (newset.Count <= 0)
+            {
+               MessageBox.Show(Resources.COMMON_MESSAGESELECTELEMENTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OK,
+                   MessageBoxImage.Warning);
+            }
+            List<dynamic> listText = new List<dynamic>();
+
+            List<dynamic> listLine = new List<dynamic>();
+
+            List<CadData> cadDatas = new List<CadData>();
+            foreach (var l in newset)
+            {
+               cadDatas.Add(new CadData() { CadObject = l, LayerName = l.Layer });
+            }
+            var groupCadData = cadDatas.GroupBy(x => x.LayerName);
+            var listLayer = new List<string>();
+            foreach (var item in groupCadData)
+            {
+               listLayer.Add(item.Key);
+            }
+            Layers = listLayer;
+            SelectedLayer = Layers.FirstOrDefault();
+            MainView.ShowDialog();
+         }
       }
       //end class
    }
