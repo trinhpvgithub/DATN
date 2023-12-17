@@ -129,14 +129,16 @@ namespace TRINHTOOL.Beam.ViewModel
       public RelayCommand Ob{ get; set; }
 
       //Constructor
-      public BeamViewModel()
+      public BeamViewModel(List<string> layer)
       {
+         Layers = layer;
          GetData();
          SelectFromCad = new RelayCommand(x => SelectBeam());
          Create = new RelayCommand(ModelBeams);
          Ob = new RelayCommand(x=>GetLayer());
          SelectedLevel = Levels.FirstOrDefault();
          FamilySelected = _families.FirstOrDefault();
+         SelectedLayer=Layers.FirstOrDefault();
       }
 
       //Select BeamFromCad

@@ -26,8 +26,8 @@ namespace TRINHTOOL.Beam
       public override void Execute()
       {
          AC.GetInformation(UiDocument);
-         //var layers = GetLayer();
-         var viewModel = new BeamViewModel();
+         var layers = GetLayer();
+         var viewModel = new BeamViewModel(layers);
          var view = new BeamView() { DataContext = viewModel };
          viewModel.  MainView = view;
          view.ShowDialog();
