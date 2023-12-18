@@ -160,14 +160,6 @@
                         Height="30"
                         Margin="5"
                         HorizontalAlignment="Right"
-                        Command="{Binding Ob}"
-                        Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
-                        Foreground="Black" />
-               <Button
-                        Width="150"
-                        Height="30"
-                        Margin="5"
-                        HorizontalAlignment="Right"
                         Command="{Binding SelectFromCad}"
                         Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
                         Foreground="Black" />

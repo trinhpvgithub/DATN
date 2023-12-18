@@ -129,9 +129,9 @@ namespace TRINHTOOL.Beam.ViewModel
       public RelayCommand Ob{ get; set; }
 
       //Constructor
-      public BeamViewModel(List<string> layer)
+      public BeamViewModel()
       {
-         Layers = layer;
+         GetLayer();
          GetData();
          SelectFromCad = new RelayCommand(x => SelectBeam());
          Create = new RelayCommand(ModelBeams);
@@ -143,6 +143,19 @@ namespace TRINHTOOL.Beam.ViewModel
 
       //Select BeamFromCad
 
+      public void GetLayer()
+      {
+         dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
+         dynamic doc = a.Documents.Application.ActiveDocument;
+         var layers = doc.Layers;
+         List<string> layerss= new List<string>();
+         for (int i = 0; i < layers.Count; i++)
+         {
+            var item = layers[i];
+            layerss.Add(item.Name) ;
+         }
+         Layers=layerss;
+      }
       public void SelectBeam()
       {
          //beamInfoCollections.Clear();
@@ -221,15 +234,12 @@ namespace TRINHTOOL.Beam.ViewModel
             {
                if (s.EntityName == "AcDbLine")
                {
-                  var c = s.EntityName;
-                  var b = s.Layer;
                   listLine.Add(s);
                }
                if (s.EntityName == "AcDbText")
                {
                   listText.Add(s);
                }
-
             }
 
             List<TextData> listpoint = new List<TextData>();
@@ -503,67 +513,6 @@ namespace TRINHTOOL.Beam.ViewModel
              .OrderBy(x => x.Elevation).ToList();
          //Family
          Families = new FilteredElementCollector(AC.Document).OfCategory(BuiltInCategory.OST_StructuralFraming).OfClass(typeof(FamilySymbol)).Cast<FamilySymbol>().Select(x => x.Family).Where(x => x.StructuralMaterialType != StructuralMaterialType.Steel).DistinctBy(x => x.Id).OrderBy(x => x.Name).ToList();
-      }
-      public void GetLayer()
-      {
-         MainView.Hide();
-         dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
-
-         dynamic doc
-             = a.Documents.Application.ActiveDocument;
-
-         string[] arrPoint = null;
-         try
-         {
-            var pointCad = doc.Utility.GetPoint(Type.Missing, "Select point: ");
-            arrPoint = ((IEnumerable)pointCad).Cast<object>()
-                .Select(x => x.ToString())
-                .ToArray();
-         }
-         catch (Exception e)
-         {
-            MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
-         }
-
-         if (arrPoint != null)
-         {
-            double[] arrPoint1 = new double[3];
-
-            int i = 0;
-
-            foreach (var item in arrPoint)
-            {
-               arrPoint1[i] = Convert.ToDouble(item);
-               i++;
-            }
-
-            CadBeamOrigin = new XyzData(arrPoint1[0], arrPoint1[1], arrPoint1[2]);
-            var newset = doc.SelectionSets.Add(Guid.NewGuid().ToString());
-            newset.SelectOnScreen();
-            if (newset.Count <= 0)
-            {
-               MessageBox.Show(Resources.COMMON_MESSAGESELECTELEMENTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OK,
-                   MessageBoxImage.Warning);
-            }
-            List<dynamic> listText = new List<dynamic>();
-
-            List<dynamic> listLine = new List<dynamic>();
-
-            List<CadData> cadDatas = new List<CadData>();
-            foreach (var l in newset)
-            {
-               cadDatas.Add(new CadData() { CadObject = l, LayerName = l.Layer });
-            }
-            var groupCadData = cadDatas.GroupBy(x => x.LayerName);
-            var listLayer = new List<string>();
-            foreach (var item in groupCadData)
-            {
-               listLayer.Add(item.Key);
-            }
-            Layers = listLayer;
-            SelectedLayer = Layers.FirstOrDefault();
-            MainView.ShowDialog();
-         }
       }
       //end class
    }
