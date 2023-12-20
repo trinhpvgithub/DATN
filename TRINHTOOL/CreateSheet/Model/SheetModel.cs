@@ -33,21 +33,6 @@ namespace TRINHTOOL.CreateSheet.Model
 
             //viewSheet.AddView(view3D, location);
             Viewport.Create(document, SHEET.Id, view.Id, new XYZ(location.U, location.V, 0));
-
-            // Print the sheet out
-            //if (SHEET.CanBePrinted)
-            //{
-            //   TaskDialog taskDialog = new TaskDialog("Revit");
-            //   taskDialog.MainContent = "Print the sheet?";
-            //   TaskDialogCommonButtons buttons = TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No;
-            //   taskDialog.CommonButtons = buttons;
-            //   TaskDialogResult result = taskDialog.Show();
-
-            //   if (result == TaskDialogResult.Yes)
-            //   {
-            //      SHEET.Print();
-            //   }
-            //}
             trans.Commit();
          }
          catch

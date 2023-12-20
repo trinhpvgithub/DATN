@@ -62,6 +62,18 @@
       <Page Remove="ViewModels\Objects\**" />
     </ItemGroup>
     <ItemGroup>
+      <None Remove="Resources\icon\Beam.png" />
+      <None Remove="Resources\icon\Beam_16.png" />
+      <None Remove="Resources\icon\Beam_32.png" />
+      <None Remove="Resources\icon\column.png" />
+      <None Remove="Resources\icon\column_16.png" />
+      <None Remove="Resources\icon\column_32.png" />
+      <None Remove="Resources\icon\floor.png" />
+      <None Remove="Resources\icon\floor_16.png" />
+      <None Remove="Resources\icon\floor_32.png" />
+      <None Remove="Resources\icon\grid.png" />
+      <None Remove="Resources\icon\grid_16.png" />
+      <None Remove="Resources\icon\grid_32.png" />
       <None Remove="Views\trinh.jpg" />
     </ItemGroup>
 
@@ -81,6 +93,18 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\icon\Beam.png" />
+      <Resource Include="Resources\icon\Beam_16.png" />
+      <Resource Include="Resources\icon\Beam_32.png" />
+      <Resource Include="Resources\icon\column.png" />
+      <Resource Include="Resources\icon\column_16.png" />
+      <Resource Include="Resources\icon\column_32.png" />
+      <Resource Include="Resources\icon\floor.png" />
+      <Resource Include="Resources\icon\floor_16.png" />
+      <Resource Include="Resources\icon\floor_32.png" />
+      <Resource Include="Resources\icon\grid.png" />
+      <Resource Include="Resources\icon\grid_16.png" />
+      <Resource Include="Resources\icon\grid_32.png" />
       <Resource Include="Views\trinh.jpg" />
     </ItemGroup>
 

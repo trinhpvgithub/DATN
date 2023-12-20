@@ -14,6 +14,8 @@ using Autodesk.Revit.UI.Events;
 using HcBimUtils.DocumentUtils;
 using Newtonsoft.Json;
 using TRINHTOOL.Grid;
+using TRINHTOOL.CreateLevel;
+using TRINHTOOL.CreateSheet;
 
 namespace TRINHTOOL
 {
@@ -28,11 +30,19 @@ namespace TRINHTOOL
       private static readonly string TAB_NAME = "TRINH-TOOL";
       public void CreateRibbon()
       {
+         var panelSet = Application.CreatePanel("Setup Ban Đầu", TAB_NAME);
+         var level = panelSet.AddPushButton<LevelCmd>("CreateLevel");
          var panelCad = Application.CreatePanel("Cad To Revit", TAB_NAME);
          var grid = panelCad.AddPushButton<GridCmd>("CreateGrid");
+         grid.SetLargeImage("/TRINHTOOL;component/Resources/icon/grid_32.png");
+         var column = panelCad.AddPushButton<ColumnCmd>("CreateColumn");
+         column.SetLargeImage("/TRINHTOOL;component/Resources/icon/column_32.png");
          var beam = panelCad.AddPushButton<BeamCmd>("CreateBeam");
-         var column= panelCad.AddPushButton<ColumnCmd>("CreateColumn");
+         beam.SetLargeImage("/TRINHTOOL;component/Resources/icon/Beam_32.png");
          var floor = panelCad.AddPushButton<FloorCmd>("CreateFloor");
+         floor.SetLargeImage("/TRINHTOOL;component/Resources/icon/floor_32.png");
+         var panelBanve = Application.CreatePanel("Xuất bản vẽ", TAB_NAME);
+         var sheet = panelBanve.AddPushButton<CreateSheetCmd>("Create Sheet");
       }
 
    }

@@ -89,7 +89,7 @@ namespace TRINHTOOL.CreateSheet.ViewModel
          {
             var v=Viewplan.FirstOrDefault(x=>x.Name.Contains(SelectedLevel.Name));
             var view = DuplicateView(v);
-            Dim(view);
+            //Dim(view);
             SheetModel.CreateSheet(AC.Document, SelectedTitleBlock.Id, view, view.Name);
          }
       }
@@ -135,13 +135,6 @@ namespace TRINHTOOL.CreateSheet.ViewModel
                {
                   dependentView.GetParameter(BuiltInParameter.VIEW_TEMPLATE).Set(SelectedViewTemplate.Id);
                }
-               //if (null != dependentView)
-               //{
-               //   if (dependentView.GetPrimaryViewId() == view.Id)
-               //   {
-               //      TaskDialog.Show("Dependent View", "Dependent view created successfully!");
-               //   }
-               //}
                tran.Commit();
                return dependentView;
             }
@@ -177,9 +170,10 @@ namespace TRINHTOOL.CreateSheet.ViewModel
          {
             a1.Append(new Reference(x));
          });
+         var line = grid.LastOrDefault().Curve.GetEndPoint(0).CreateLine(grid.FirstOrDefault().Curve.GetEndPoint(0));
          var tran = new Transaction(AC.Document);
          tran.Start("dim");
-         AC.Document.Create.NewDimension(view, grid.LastOrDefault().Curve as Line, a1);
+         AC.Document.Create.NewDimension(view, line, a1);
          tran.Commit();
       }
    }
