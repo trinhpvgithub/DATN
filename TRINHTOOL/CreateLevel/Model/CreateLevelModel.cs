@@ -123,8 +123,8 @@ namespace TRINHTOOL.CreateLevel.Model
                      break;
                   }
                }
-               ExtendLevelsAndGrids(doc, view as ViewSection);
                trans.Commit();
+               ExtendLevelsAndGrids(doc, view as ViewSection);
             }
          }
          catch
@@ -154,8 +154,8 @@ namespace TRINHTOOL.CreateLevel.Model
                      levelnew.Name = TuychinhtenCaodo + "" + TuychinhsoCaodo.ToString();
                   }
                }
-               ExtendLevelsAndGrids(doc, view as ViewSection);
                trans.Commit();
+               ExtendLevelsAndGrids(doc, view as ViewSection);
             }
          }
          catch (Exception)
@@ -165,6 +165,8 @@ namespace TRINHTOOL.CreateLevel.Model
       }
       private void ExtendLevelsAndGrids(Document document, ViewSection viewSection)
       {
+         var Trans = new Transaction(document, "Căn chỉnh LV");
+         Trans.Start();
          var scale = viewSection.Scale;
          Curve gridMin, gridMax;
          List<Level> datums = new FilteredElementCollector(AC.Document, viewSection.Id)
@@ -201,6 +203,7 @@ namespace TRINHTOOL.CreateLevel.Model
             datum.ShowBubbleInView(DatumEnds.End0, viewSection);
             datum.ShowBubbleInView(DatumEnds.End1, viewSection);
          }
+         Trans.Commit();
          #endregion
       }
       public List<double> Nhapsolieu(string value, string truc)

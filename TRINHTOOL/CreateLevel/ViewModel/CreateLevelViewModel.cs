@@ -29,6 +29,7 @@ namespace TRINHTOOL.CreateLevel.ViewModel
         }
         public void Start1(object obj)
         {
+         var w = obj as Window;
             CreateLevelModel.CreateTang(obj);
         }
         public void Start2(object obj)

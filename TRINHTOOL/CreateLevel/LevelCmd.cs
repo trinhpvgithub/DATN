@@ -13,12 +13,20 @@ namespace TRINHTOOL.CreateLevel
       public override void Execute()
       {
          AC.GetInformation(UiDocument);
-         var viewModel = new CreateLevelViewModel();
-         var view = new CreateLevelView
+         try
          {
-            DataContext = viewModel
-         };
-         view.ShowDialog();
+            var viewModel = new CreateLevelViewModel();
+            var view = new CreateLevelView
+            {
+               DataContext = viewModel
+            };
+            view.ShowDialog();
+         }
+         catch (Exception)
+         {
+
+            throw;
+         }
       }
    }
 }

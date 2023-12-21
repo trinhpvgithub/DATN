@@ -21,7 +21,6 @@ namespace TRINHTOOL.CreateSheet.Model
          {
             SHEET = ViewSheet.Create(document, titleblock);
             SHEET.Name = name;
-            SHEET.SheetNumber = "Mặt Bằng";
             if (null == SHEET)
             {
                throw new Exception("Failed to create new ViewSheet.");

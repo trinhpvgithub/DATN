@@ -5,36 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TRINHTOOL.CreateSheet.View"
         xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="SheetView" Height="360" Width="300">
+        Title="SheetView" Height="400" Width="300">
    <FrameworkElement.Resources>
       <ResourceDictionary>
          <ResourceDictionary.MergedDictionaries>
             <ResourceDictionary Source="pack://application:,,,/TRINHTOOL;component/Resources/ResourceString.en.xaml" />
             <ResourceDictionary Source="pack://application:,,,/HcBimUtils;component/WPFUtils/ResourceDictionaries/Styles.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.teal.xaml" />
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
          </ResourceDictionary.MergedDictionaries>
 
-         <Style TargetType="Button"
-        BasedOn="{StaticResource ResourceKey=ButtonStyle}" />
-         <Style TargetType="RadioButton"
-        BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" />
-         <!--<Style TargetType="GroupBox"
-        BasedOn="{StaticResource ResourceKey=GroupBoxStyle}" />-->
-         <Style TargetType="ComboBox"
-        BasedOn="{StaticResource ResourceKey=ComboBoxStyle}">
-            <Setter Property="Height"
-             Value="35" />
+         <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button" />
+         <Style BasedOn="{StaticResource ResourceKey=RadioButtonStyle}" TargetType="RadioButton" />
+         <Style BasedOn="{StaticResource MaterialDesignCardGroupBox}" TargetType="GroupBox" />
+         <Style BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}" TargetType="ComboBox">
+            <Setter Property="Height" Value="auto" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
          </Style>
-         <Style TargetType="ToggleButton"
-        BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" />
-         <Style TargetType="TextBox"
-        BasedOn="{StaticResource ResourceKey=TextBoxStyle}" />
-         <Style TargetType="ProgressBar"
-        BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" />
-         <Style x:Key="CenterGridHeaderStyle"
-        TargetType="DataGridColumnHeader">
-            <Setter Property="HorizontalContentAlignment"
-             Value="Center" />
+         <Style BasedOn="{StaticResource ResourceKey=ToggleButtonStyle}" TargetType="ToggleButton" />
+         <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox" />
+         <Style BasedOn="{StaticResource ResourceKey=ProgressBarStyle}" TargetType="ProgressBar" />
+         <Style x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+         </Style>
+         <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="auto" />
+            <Setter Property="Height" Value="auto" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Margin" Value="5,15,10,0" />
+            <Setter Property="TextAlignment" Value="Center" />
          </Style>
       </ResourceDictionary>
    </FrameworkElement.Resources>
@@ -66,6 +72,7 @@
                             VerticalAlignment="Center"
                             Text="{DynamicResource MODELFROMCAD_LEVEL}"></TextBlock>
                   <ComboBox 
+                            materialDesign:HintAssist.Hint="Level"
                             SelectedItem="{Binding SelectedLevel}"
                             DisplayMemberPath="Name"
                             Grid.Column="1"
@@ -96,6 +103,7 @@
                              VerticalAlignment="Center"
                             Text="{DynamicResource MODELFROMCAD_TITLEBOCK}"></TextBlock>
                   <ComboBox 
+                     materialDesign:HintAssist.Hint="TitleBlock"
                              DisplayMemberPath="Name"
                              SelectedItem="{Binding SelectedTitleBlock}"
                              Grid.Column="1"
@@ -113,6 +121,7 @@
                  HorizontalAlignment="Left"
                 Text="{DynamicResource MODELFROMCAD_VIEW}"/>
                   <ComboBox 
+                     materialDesign:HintAssist.Hint="ViewTemplate"
                  DisplayMemberPath="Name"
                  SelectedItem="{Binding SelectedViewTemplate}"
                  Grid.Column="1"
@@ -120,23 +129,24 @@
                  ></ComboBox>
 
                </Grid>
-               <!--<Grid Margin="4" Grid.Row="4">
+               <Grid Margin="4" Grid.Row="4">
                   <Grid.ColumnDefinitions>
                      <ColumnDefinition Width="90"></ColumnDefinition>
                      <ColumnDefinition Width="31*" ></ColumnDefinition>
                      <ColumnDefinition Width="12*"/>
                   </Grid.ColumnDefinitions>
                   <TextBlock
-  HorizontalAlignment="Left"
- Text="{DynamicResource MODELFROMCAD_SCALE}"/>
+                     HorizontalAlignment="Left"
+                     Text="{DynamicResource MODELFROMCAD_SCALE}"/>
                   <ComboBox 
-  DisplayMemberPath="Name"
-  SelectedItem="{Binding SelectedScale}"
-  Grid.Column="1"
-  ItemsSource="{Binding Scale}" Grid.ColumnSpan="2" Margin="5,6,5,6"
-  ></ComboBox>
+                     materialDesign:HintAssist.Hint="Scale"
+                       ItemsSource="{Binding Scale}" 
+                       SelectedItem="{Binding SelectedScale}"
+                       Grid.Column="1"
+                     Grid.ColumnSpan="2" 
+                     Margin="5,6,5,6"></ComboBox>
 
-               </Grid>-->
+               </Grid>
 
             </Grid>
          </GroupBox>
@@ -148,20 +158,17 @@
                              Height="40"
                              DockPanel.Dock="Bottom">
                <Button  Content="{DynamicResource COMMON_BUTTON_OK}"
-                              Width="68"
                               Height="26"
                               Margin="5,5,5,5"
                               Foreground="Black"
-                              Background="LightGray"
                               HorizontalAlignment="Right"
                               Command="{Binding Ok}"
                      ></Button>
                <Button Name="BtClose"
                              Content="{DynamicResource COMMON_BUTTON_CANCEL}"
-                             Width="68"
+                             
                              IsCancel="True"
                              Height="26"
-                             Background="LightGray"
                              Foreground="Black"
                              Margin="5,5,0,5"
                              HorizontalAlignment="Right"
