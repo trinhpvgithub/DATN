@@ -491,7 +491,8 @@ namespace TRINHTOOL.Column.ViewModel
                progressView.Close();
             }
          }
-         //ParentViewModel.ModelFromCadMainView.ShowDialog();
+         columnInfoCollections.Clear();
+         MainView.Show();
       }
 
       private ElementType GetElementType(int width, int height)

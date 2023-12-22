@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
     Title="GridView"
-    Width="800"
+    Width="600"
     Height="450"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -74,6 +74,8 @@
                   <Grid.ColumnDefinitions>
                      <ColumnDefinition Width="70" />
                      <ColumnDefinition />
+                     <ColumnDefinition Width="70" />
+                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
 
                   <TextBlock
@@ -88,6 +90,14 @@
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding Grids}"
                             SelectedItem="{Binding Grid}" />
+                  <TextBlock Grid.Column="2" 
+                             HorizontalAlignment="Left"
+                             Text="{DynamicResource MODELFROMCAD_LAYER}" />
+                  <ComboBox
+                            Grid.Column="3"
+                            materialDesign:HintAssist.Hint="Layer"
+                            ItemsSource="{Binding Layers}"
+                            SelectedItem="{Binding SelectedLayer}" />
                </Grid>
 
             </Grid>

@@ -391,6 +391,7 @@ namespace TRINHTOOL.Beam.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
+         _beamInfoCollections.Clear();
          MainView.ShowDialog();
       }
 
