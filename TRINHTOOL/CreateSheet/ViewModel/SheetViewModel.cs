@@ -10,6 +10,7 @@ using GRID = Autodesk.Revit.DB.Grid;
 using HcBimUtils;
 using Autodesk.Revit.Creation;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace TRINHTOOL.CreateSheet.ViewModel
 {
@@ -76,11 +77,16 @@ namespace TRINHTOOL.CreateSheet.ViewModel
       public void Create()
       {
          Viewplan = new FilteredElementCollector(AC.Document)
-            .OfClass(typeof(VIEW))
+            .WhereElementIsNotElementType()
+            .OfCategory(BuiltInCategory.OST_Views)
             .Cast<VIEW>()
             .Where(x => x is ViewPlan)
-            .Where(y=>y.Title.Contains("Structural"))
+            .Where(x => !x.IsTemplate)
+            .Where (x => !x.Name.Contains("Analytical"))
+            .Where(x => !x.Name.Contains("Site"))
+            //.Where(x=>x.GetTypeId().ToElement().Name.Contains("Structural Plan"))
             .ToList();
+         if (Viewplan.Count <= 0) return;
 
          if (MainView.cb_levels.IsChecked == true)
          {
@@ -338,46 +344,25 @@ namespace TRINHTOOL.CreateSheet.ViewModel
       private void CreateIndependentTag(VIEW view, List<Element> farm)
       {
          var scale = ViewScale(SelectedScale);
-         List<IndependentTag> newTags = null;
          // define tag mode and tag orientation for new tag
          TagMode tagMode = TagMode.TM_ADDBY_CATEGORY;
          TagOrientation tagorn = TagOrientation.Horizontal;
-         var farmm = farm.FirstOrDefault();
          // Add the tag to the middle of the wall
          var tran = new Transaction(AC.Document);
          tran.Start("123");
          foreach (var item in farm)
          {
-            var b= AC.Document.GetElement(item.GetTypeId()).LookupParameter("b").AsDouble();
+            var b = AC.Document.GetElement(item.GetTypeId()).LookupParameter("b").AsDouble();
             LocationCurve wallLoc = item.Location as LocationCurve;
-            XYZ wallStart = wallLoc.Curve.GetEndPoint(0);
-            XYZ wallEnd = wallLoc.Curve.GetEndPoint(1);
             XYZ wallMid = wallLoc.Curve.Evaluate(0.5, true);
-            var dir = wallMid.CrossProduct(XYZ.BasisZ);
-            var p=wallMid.Add((-b/2*dir));
+            var fram = item as FamilyInstance;
+            var dir = fram.FacingOrientation;
+            var p = wallMid.Add(dir * (b / 2 + 2.5.MmToFoot() * scale));
             Reference wallRef = new Reference(item);
 
-            IndependentTag newTag = IndependentTag.Create(AC.Document, view.Id, wallRef, true, tagMode, tagorn, p);
+            IndependentTag newTag = IndependentTag.Create(AC.Document, view.Id, wallRef, false, tagMode, tagorn, p);
          }
          tran.Commit();
-         //if (null == newTag)
-         //{
-         //   throw new Exception("Create IndependentTag Failed.");
-         //}
-
-         // newTag.TagText is read-only, so we change the Type Mark type parameter to 
-         // set the tag text.  The label parameter for the tag family determines
-         // what type parameter is used for the tag text.
-
-
-         // set leader mode free
-         // otherwise leader end point move with elbow point
-
-         //newTag.LeaderEndCondition = LeaderEndCondition.Free;
-         //XYZ elbowPnt = wallMid + new XYZ(5.0, 5.0, 0.0);
-         //newTag.LeaderElbow = elbowPnt;
-         //XYZ headerPnt = wallMid + new XYZ(10.0, 10.0, 0.0);
-         //newTag.TagHeadPosition = headerPnt;
 
       }
 

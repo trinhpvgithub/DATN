@@ -30,10 +30,12 @@ namespace TRINHTOOL
       private static readonly string TAB_NAME = "TRINH-TOOL";
       public void CreateRibbon()
       {
-         var panelSet = Application.CreatePanel("Setup Ban Đầu", TAB_NAME);
+         var panelSet = Application.CreatePanel("Da Tum", TAB_NAME);
          var level = panelSet.AddPushButton<LevelCmd>("CreateLevel");
+         level.SetImage("/DaiwaLease2;component/Resources2/Icons/Level_16.png");
+         level.SetLargeImage("/TRINHTOOL;component/Resources/icon/Level_32.png");
          var panelCad = Application.CreatePanel("Cad To Revit", TAB_NAME);
-         var grid = panelCad.AddPushButton<GridCmd>("CreateGrid");
+         var grid = panelSet.AddPushButton<GridCmd>("CreateGrid");
          grid.SetImage("/DaiwaLease2;component/Resources2/Icons/arc2_16.png");
          grid.SetLargeImage("/TRINHTOOL;component/Resources/icon/grid_32.png");
          var column = panelCad.AddPushButton<ColumnCmd>("CreateColumn");
@@ -45,8 +47,10 @@ namespace TRINHTOOL
          var floor = panelCad.AddPushButton<FloorCmd>("CreateFloor");
          floor.SetImage("/TRINHTOOL;component/Resources/icon/floor_16.png");
          floor.SetLargeImage("/TRINHTOOL;component/Resources/icon/floor_32.png");
-         var panelBanve = Application.CreatePanel("Xuất bản vẽ", TAB_NAME);
+         var panelBanve = Application.CreatePanel("Sheet", TAB_NAME);
          var sheet = panelBanve.AddPushButton<CreateSheetCmd>("Create Sheet");
+         sheet.SetImage("/TRINHTOOL;component/Resources/icon/Sheet_16.png");
+         sheet.SetLargeImage("/TRINHTOOL;component/Resources/icon/Sheet_32.png");
       }
 
    }

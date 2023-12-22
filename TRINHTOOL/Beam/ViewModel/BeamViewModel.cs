@@ -366,13 +366,13 @@ namespace TRINHTOOL.Beam.ViewModel
                   var a = line.SP();
                   var b = line.EP();
 
-                  a = a.EditZ(beamInfoCollection.Level.Elevation);
-                  b = b.EditZ(beamInfoCollection.Level.Elevation);
+                  a = a.EditZ(SelectedLevel.Elevation);
+                  b = b.EditZ(SelectedLevel.Elevation);
 
                   var l = Line.CreateBound(a, b);
                   try
                   {
-                     var beam = AC.Document.Create.NewFamilyInstance(l, fs, beamInfoCollection.Level,
+                     var beam = AC.Document.Create.NewFamilyInstance(l, fs, SelectedLevel,
                          StructuralType.Beam);
 
                      var mark = beam.SetParameterValueByName(BuiltInParameter.ALL_MODEL_MARK, beamInfoCollection.Mark);

@@ -6,7 +6,7 @@ using HcBimUtils;
 using HcBimUtils.WPFUtils;
 using System.Windows;
 using MessageBox = System.Windows.Forms.MessageBox;
-
+using VIEW= Autodesk.Revit.DB.View;
 namespace TRINHTOOL.CreateLevel.Model
 {
    public class CreateLevelModel : ViewModelBase
@@ -86,8 +86,25 @@ namespace TRINHTOOL.CreateLevel.Model
       public void CreateTang(object obj)
       {
          var doc = AC.Document;
-         var uidoc = AC.UiDoc.Application.ActiveUIDocument;
+         var levels=new FilteredElementCollector(doc)
+            .OfClass(typeof(Level))
+            .Cast<Level>()
+            .OrderBy(x=>x.Elevation)
+            .ToList();
+         var views= new FilteredElementCollector(AC.Document)
+            .OfCategory(BuiltInCategory.OST_Views)
+            .Cast<VIEW>()
+            .Where(x => x is ViewSection)
+            .Where(x => !x.IsTemplate)
+            .Where(x => x.GetTypeId().ToElement().Name.Contains("Elevation"))
+            .ToList();
          var view = doc.ActiveView;
+         if(view is not ViewSection)
+         {
+            view = views.FirstOrDefault();
+            AC.UiDoc.RequestViewChange(view);
+            AC.UiDoc.RefreshActiveView();
+         }   
          var window = obj as Window;
          List<double> solieu = Nhapsolieu(NhapsolieuTang, "chiều cao tầng");
          Transaction trans = new Transaction(doc, "Tạo level");
@@ -97,8 +114,7 @@ namespace TRINHTOOL.CreateLevel.Model
             {
                window.Close();
                trans.Start();
-               var refer = uidoc.Selection.PickObject(ObjectType.Element, new LevelSelectionFilter(), "Selection Level");
-               var levelbase = doc.GetElement(refer) as Level;
+               var levelbase = levels.LastOrDefault();
                var curve = levelbase.GetCurvesInView(DatumExtentType.ViewSpecific, view).ElementAt(0);
                var dir = curve.Direction();
                double elevation = 0;
@@ -106,18 +122,18 @@ namespace TRINHTOOL.CreateLevel.Model
                {
                   if (i == 0)
                   {
-                     elevation = (solieu[i] / 304.8);
+                     elevation = (solieu[i].MmToFoot());
                      Element levelnew = doc.GetElement(levelbase.Copy(dir.X, dir.Y, elevation).First());
-                     if (IsTangtuychinh == true) levelnew.Name = Tuychinhtentang + "" + Tuychinhsotang.ToString();
-                     elevation = solieu[0] / 304.8;
+                     if (IsTangtuychinh == true) levelnew.Name = Tuychinhtentang + " " + Tuychinhsotang.ToString();
+                     elevation = solieu[0].MmToFoot();
                   }
                   else
                   {
-                     elevation += (solieu[i]) / 304.8;
+                     elevation += (solieu[i]).MmToFoot();
                      Level levelnew = levelbase.Copy(dir.X, dir.Y, elevation) as Level;
                      for (int j = 0; j < solieu.Count - 2; j++)
                      {
-                        elevation += solieu[i] / 304.8;
+                        elevation += solieu[i].MmToFoot();
                         Level levelnew1 = levelbase.Copy(dir.X, dir.Y, elevation) as Level;
                      }
                      break;
@@ -147,7 +163,7 @@ namespace TRINHTOOL.CreateLevel.Model
                window.Close();
                for (int i = 0; i < solieu.Count; i++)
                {
-                  double elevation = solieu[i] / 304.8;
+                  double elevation = solieu[i].MmToFoot();
                   var levelnew = Level.Create(doc, elevation);
                   if (i == 0 && IsCaodotuychinh == true)
                   {

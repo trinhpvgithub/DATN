@@ -8,6 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
     Title="FloorView"
+   Topmost="True"
+   WindowStartupLocation="CenterScreen"
     Width="600"
     Height="450"
     mc:Ignorable="d">
