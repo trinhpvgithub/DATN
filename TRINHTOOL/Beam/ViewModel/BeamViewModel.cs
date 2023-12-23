@@ -126,7 +126,8 @@ namespace TRINHTOOL.Beam.ViewModel
       public RelayCommand SelectFromCad { get; set; }
 
       public RelayCommand Create { get; set; }
-      public RelayCommand Ob{ get; set; }
+      public RelayCommand CanCel{ get; set; }
+      public RelayCommand PointRevit{ get; set; }
 
       //Constructor
       public BeamViewModel()
@@ -134,8 +135,9 @@ namespace TRINHTOOL.Beam.ViewModel
          GetLayer();
          GetData();
          SelectFromCad = new RelayCommand(x => SelectBeam());
-         Create = new RelayCommand(ModelBeams);
-         Ob = new RelayCommand(x=>GetLayer());
+         Create = new RelayCommand(x=>ModelBeams(AC.Selection.PickPoint()));
+         CanCel = new RelayCommand(x=>CC());
+         PointRevit = new RelayCommand(x => ModelBeams(new XYZ()));
          SelectedLevel = Levels.FirstOrDefault();
          FamilySelected = _families.FirstOrDefault();
          SelectedLayer=Layers.FirstOrDefault();
@@ -297,21 +299,18 @@ namespace TRINHTOOL.Beam.ViewModel
          MainView.ShowDialog();
          MainView.Focus();
       }
-
+      public void CC()
+      {
+         MainView?.Close();
+      }
 
       //Model Beam
-      public void ModelBeams(object obj)
+      public void ModelBeams(XYZ Point)
       {
          MainView.Hide();
-         if (obj is Window w)
-         {
-            w.Close();
-         }
-
          try
          {
-            Origin = AC.Selection.PickPoint();
-
+            Origin = Point;
          }
          catch (Exception e)
          {
@@ -391,14 +390,12 @@ namespace TRINHTOOL.Beam.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
-         _beamInfoCollections.Clear();
-         MainView.ShowDialog();
       }
 
       //GetBeamInfoCollections
       public void GetBeamInfoCollection()
       {
-         //_beamInfoCollections.Clear();
+         _beamInfoCollections.Clear();
          var dic = new Dictionary<string, List<BeamInfo>>();
 
          if (_cadBeams != null)
@@ -435,6 +432,8 @@ namespace TRINHTOOL.Beam.ViewModel
                _beamInfoCollections.Add(collection);
             }
          }
+         BeamInfoCollections.Clear();
+         OnPropertyChanged(nameof(BeamInfoCollections));
          BeamInfoCollections = new ObservableCollection<BeamInfoCollection>(_beamInfoCollections);
       }
 
@@ -470,7 +469,7 @@ namespace TRINHTOOL.Beam.ViewModel
 
          if (elementType == null)
          {
-            //Duplicate Column Type
+            //Duplicate Beam Type
             var type = beamTypes.FirstOrDefault();
 
             var newTypeName = width + "x" + heigt + "mm";

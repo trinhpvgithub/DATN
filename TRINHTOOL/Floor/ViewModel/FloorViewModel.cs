@@ -59,12 +59,16 @@ namespace TRINHTOOL.Floor.ViewModel
       public RelayCommand Create { get; set; }
 
       public RelayCommand SelectFromCad { get; set; }
+      public RelayCommand CanCel { get; set; }
+      public RelayCommand PointRevit { get; set; }
       //Constructor
       public FloorViewModel()
       {
          GetLayer();
          SelectFromCad = new RelayCommand(x => SelectFloorFromCad());
-         Create = new RelayCommand(ModelFloor);
+         Create = new RelayCommand(x=>ModelFloor(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x=>ModelFloor(new XYZ()));
+         CanCel = new RelayCommand(x => CC());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
          FloorType = new FilteredElementCollector(AC.Document).OfCategory(BuiltInCategory.OST_Floors)
@@ -72,6 +76,10 @@ namespace TRINHTOOL.Floor.ViewModel
 
          SelectedFloorType = FloorType.FirstOrDefault();
          SelectedLayer = Layers.FirstOrDefault();
+      }
+      public void CC()
+      {
+         MainView?.Close();
       }
       public void GetLayer()
       {
@@ -204,18 +212,12 @@ namespace TRINHTOOL.Floor.ViewModel
       }
 
       //Model Floor
-      public void ModelFloor(object obj)
+      public void ModelFloor(XYZ point)
       {
          MainView.Hide();
-         if (obj is Window w)
-         {
-            w.Close();
-         }
-
-
          try
          {
-            Origin = AC.Selection.PickPoint();
+            Origin = point;
          }
          catch (Exception e)
          {
@@ -260,8 +262,8 @@ namespace TRINHTOOL.Floor.ViewModel
                         var p1 = listpoint[i].ToXyz().Add(Origin - info.Origin.ToXyz());
                         var p2 = listpoint[i + 1].ToXyz().Add(Origin - info.Origin.ToXyz());
 
-                        p1 = p1.EditZ(info.SelectedLevel.Elevation);
-                        p2 = p2.EditZ(info.SelectedLevel.Elevation);
+                        p1 = p1.EditZ(SelectedLevel.Elevation);
+                        p2 = p2.EditZ(SelectedLevel.Elevation);
                         if (!p1.IsAlmostEqualTo(p2, 1E-3))
                         {
                         }
@@ -272,8 +274,8 @@ namespace TRINHTOOL.Floor.ViewModel
 
                      }
 
-                     var pe = listpoint[listpoint.Count - 1].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(info.SelectedLevel.Elevation);
-                     var pt = listpoint[0].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(info.SelectedLevel.Elevation);
+                     var pe = listpoint[listpoint.Count - 1].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(SelectedLevel.Elevation);
+                     var pt = listpoint[0].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(SelectedLevel.Elevation);
                      if (!pe.IsAlmostEqualTo(pt))
                      {
                      }
@@ -288,7 +290,7 @@ namespace TRINHTOOL.Floor.ViewModel
                          curvearr.ToCurves().ForEach(x => cl.Append(x));
                          floor = Floor.Create(AC.Document, new List<CurveLoop>() { cl }, SelectedFloorType.Id, SelectedLevel.Id);
 #else
-                        floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, info.SelectedLevel, true);
+                        floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, SelectedLevel, true);
 #endif
 
                         var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
@@ -311,14 +313,6 @@ namespace TRINHTOOL.Floor.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
-
-         MainView.ShowDialog();
-      }
-
-      //GetInfoCollection
-      public void GetFloorInfoCollections()
-      {
-
       }
 
       //Getdata

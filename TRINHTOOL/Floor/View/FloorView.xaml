@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:wpfUtils="clr-namespace:HcBimUtils.WPFUtils;assembly=HcBimUtils"
     Title="FloorView"
-   Topmost="True"
-   WindowStartupLocation="CenterScreen"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
     Width="600"
     Height="450"
     mc:Ignorable="d">
@@ -134,7 +134,6 @@
                     DockPanel.Dock="Bottom"
                     Orientation="Horizontal">
                <Button
-                        Width="150"
                         Height="30"
                         Margin="5,5,5,5"
                         HorizontalAlignment="Right"
@@ -142,8 +141,16 @@
                         Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
                         Foreground="Black" />
                <Button
+                        Name="Btn"
+                        Height="30"
+                        Margin="5,5,0,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding PointRevit}"
+                        Content="{DynamicResource COMMON_BUTTON_PICK}"
+                        Foreground="Black"
+                        IsCancel="True" />
+               <Button
                         Name="BtClose"
-                        Width="120"
                         Height="30"
                         Margin="5,5,0,5"
                         HorizontalAlignment="Right"
@@ -151,7 +158,14 @@
                         Content="{DynamicResource COMMON_BUTTON_CREATE}"
                         Foreground="Black"
                         IsCancel="True" />
-
+               <Button
+                        Height="30"
+                        Margin="5,5,0,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Cancel}"
+                        Content="{DynamicResource COMMON_BUTTON_CANCEL}"
+                        Foreground="Black"
+                        IsCancel="True" />
             </StackPanel>
          </Grid>
 

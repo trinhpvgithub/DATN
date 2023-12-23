@@ -146,15 +146,23 @@ namespace TRINHTOOL.Column.ViewModel
       public RelayCommand SelectFromCad { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand CanCel { get; set; }
+      public RelayCommand PointRevit { get; set; }
 
       public ColumnViewModel()
       {
          GetLayer();
          SelectFromCad = new RelayCommand(x => SelectFormCad());
-         Create = new RelayCommand(x => ModelColumn());
+         Create = new RelayCommand(x =>ModelColumn(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x =>ModelColumn(new XYZ()));
+         CanCel = new RelayCommand(x =>CC());
          GetData();
          FamilySelected = _families.FirstOrDefault();
          SelectedLayer = Layers.FirstOrDefault();
+      }
+      public void CC()
+      {
+         MainView?.Close();
       }
       public void GetLayer()
       {
@@ -327,6 +335,7 @@ namespace TRINHTOOL.Column.ViewModel
             OnPropertyChanged(nameof(ColumnInfoCollections));
          }
          MainView.ShowDialog();
+         MainView.Focus();
       }
 
       public void GetData()
@@ -401,12 +410,12 @@ namespace TRINHTOOL.Column.ViewModel
          ColumnInfoCollections = new ObservableCollection<ColumnInfoCollection>(columnInfoCollections);
       }
 
-      public void ModelColumn()
+      public void ModelColumn(XYZ point)
       {
          MainView.Hide();
          try
          {
-            _origin = AC.Selection.PickPoint();
+            _origin = point;
          }
          catch (Exception e)
          {
@@ -491,8 +500,6 @@ namespace TRINHTOOL.Column.ViewModel
                progressView.Close();
             }
          }
-         columnInfoCollections.Clear();
-         MainView.Show();
       }
 
       private ElementType GetElementType(int width, int height)

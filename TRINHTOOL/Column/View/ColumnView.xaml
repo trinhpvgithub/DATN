@@ -11,6 +11,7 @@
     Width="600"
     Height="450"
     SizeToContent="Height"
+    Topmost="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
    <FrameworkElement.Resources>
@@ -184,7 +185,6 @@
                     DockPanel.Dock="Bottom"
                     Orientation="Horizontal">
                <Button
-                        Width="150"
                         Height="30"
                         Margin="5"
                         HorizontalAlignment="Right"
@@ -192,13 +192,29 @@
                         Content="{DynamicResource COMMON_BUTTON_SELECTFROMCAD}"
                         Foreground="Black" />
                <Button
+                        Name="Btn"
+                        Height="30"
+                        Margin="5,5,0,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding PointRevit}"
+                        Content="{DynamicResource COMMON_BUTTON_PICK}"
+                        Foreground="Black"
+                        IsCancel="True" />
+               <Button
                         Name="BtClose"
-                        Width="120"
                         Height="30"
                         Margin="5,5,0,5"
                         HorizontalAlignment="Right"
                         Command="{Binding Create}"
                         Content="{DynamicResource COMMON_BUTTON_CREATE}"
+                        Foreground="Black"
+                        IsCancel="True" />
+               <Button
+                        Height="30"
+                        Margin="5,5,0,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Cancel}"
+                        Content="{DynamicResource COMMON_BUTTON_CANCEL}"
                         Foreground="Black"
                         IsCancel="True" />
 
