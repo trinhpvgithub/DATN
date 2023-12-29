@@ -180,6 +180,7 @@ namespace TRINHTOOL.Column.ViewModel
       public void SelectFormCad()
       {
          MainView.Hide();
+         cadRectangles.Clear();
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
          dynamic doc
@@ -499,6 +500,7 @@ namespace TRINHTOOL.Column.ViewModel
                tg.Assimilate();
                progressView.Close();
             }
+            MainView.ShowDialog();
          }
       }
 

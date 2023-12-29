@@ -161,6 +161,7 @@ namespace TRINHTOOL.Beam.ViewModel
       public void SelectBeam()
       {
          //beamInfoCollections.Clear();
+         _cadBeams.Clear();
          MainView.Hide();
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
@@ -178,6 +179,7 @@ namespace TRINHTOOL.Beam.ViewModel
          catch (Exception e)
          {
             MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            
          }
 
          if (arrPoint != null)
@@ -390,6 +392,7 @@ namespace TRINHTOOL.Beam.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
+         MainView.ShowDialog();
       }
 
       //GetBeamInfoCollections

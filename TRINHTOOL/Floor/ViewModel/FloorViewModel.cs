@@ -66,8 +66,8 @@ namespace TRINHTOOL.Floor.ViewModel
       {
          GetLayer();
          SelectFromCad = new RelayCommand(x => SelectFloorFromCad());
-         Create = new RelayCommand(x=>ModelFloor(AC.Selection.PickPoint()));
-         PointRevit = new RelayCommand(x=>ModelFloor(new XYZ()));
+         Create = new RelayCommand(x => ModelFloor(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x => ModelFloor(new XYZ()));
          CanCel = new RelayCommand(x => CC());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
@@ -227,6 +227,7 @@ namespace TRINHTOOL.Floor.ViewModel
 
          if (Origin != null)
          {
+            List<CurveArray> floorss = new List<CurveArray>();
             var max = FloorInfoCollections.Count;
             Origin = new XYZ(Origin.X, Origin.Y, 0);
             var progressView = new progressbar();
@@ -245,10 +246,9 @@ namespace TRINHTOOL.Floor.ViewModel
                   {
                      break;
                   }
-
                   using (var tx = new Transaction(AC.Document, "Modeling Column From Cad"))
                   {
-                     tx.Start();
+                     //tx.Start();
                      FailureHandlingOptions failOpt = tx.GetFailureHandlingOptions();
 
                      failOpt.SetFailuresPreprocessor(waringsuper);
@@ -270,8 +270,6 @@ namespace TRINHTOOL.Floor.ViewModel
                         var l = Line.CreateBound(p1, p2);
                         Curve curve = l;
                         curvearr.Append(curve);
-
-
                      }
 
                      var pe = listpoint[listpoint.Count - 1].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(SelectedLevel.Elevation);
@@ -282,32 +280,73 @@ namespace TRINHTOOL.Floor.ViewModel
                      Curve cv = Line.CreateBound(pe, pt);
 
                      curvearr.Append(cv);
-                     try
-                     {
-                        Autodesk.Revit.DB.Floor floor;
-#if R23 || R22
-                         var cl = new CurveLoop();
-                         curvearr.ToCurves().ForEach(x => cl.Append(x));
-                         floor = Floor.Create(AC.Document, new List<CurveLoop>() { cl }, SelectedFloorType.Id, SelectedLevel.Id);
+                     floorss.Add(curvearr);
+//                     try
+//                     {
+//                        Autodesk.Revit.DB.Floor floor;
+//#if R23 || R22 || R24
+//                        var cl = new CurveLoop();
+//                        var cl2 = new CurveLoop();
+//                        var curveLoop = new List<CurveLoop>();
+//                        foreach (CurveArray cur in floorss)
+//                        {
+//                           cur.ToCurves().ForEach(x => cl.Append(x));
+//                           curveLoop.Append(cl);
+//                        }
+//                        floor = Autodesk.Revit.DB.Floor.Create(AC.Document, curveLoop, SelectedFloorType.Id, SelectedLevel.Id);
+//#else
+//                        floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, SelectedLevel, true);
+//#endif
+
+//                        var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
+
+//                        offsetParam.Set(Offset.MmToFoot());
+
+//                     }
+//                     catch
+//                     {
+
+//                     }
+
+                     //progressView.Create(max, "FloorModel");
+                     //tx.Commit();
+                  }
+               }
+               var tran = new Transaction(AC.Document);
+               tran.Start("hi");
+               try
+               {
+                  Autodesk.Revit.DB.Floor floor;
+#if R23 || R22 || R24
+ 
+                  var curveLoop = new List<CurveLoop>();
+                  //foreach (var cur in floorss)
+                  //{
+                  //   cur.ToCurves().ForEach(x => cl.Append(x));
+                  //   curveLoop.Append(cl);
+                  //}
+                  floorss.ForEach(x =>
+                  {
+                     var cl = new CurveLoop();
+                     x.ToCurves().ForEach(y=>cl.Append(y));
+                     curveLoop.Add(cl);
+                  });
+                  floor = Autodesk.Revit.DB.Floor.Create(AC.Document, curveLoop, SelectedFloorType.Id, SelectedLevel.Id);
 #else
                         floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, SelectedLevel, true);
 #endif
 
-                        var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
+                  var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
 
-                        offsetParam.Set(Offset.MmToFoot());
+                  offsetParam.Set(Offset.MmToFoot());
 
-                     }
-                     catch
-                     {
-
-                     }
-
-                     progressView.Create(max, "FloorModel");
-                     tx.Commit();
-                  }
                }
+               catch
+               {
 
+               }
+               progressView.Create(max, "FloorModel");
+               tran.Commit();
             }
 
             tg.Assimilate();

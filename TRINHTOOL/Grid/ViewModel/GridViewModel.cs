@@ -319,9 +319,6 @@ namespace TRINHTOOL.Grid.ViewModel
             tg.Assimilate();
             progressView.Close();
          }
-
-         MainView.Show();
-
       }
 
       //GetInfoCollections
