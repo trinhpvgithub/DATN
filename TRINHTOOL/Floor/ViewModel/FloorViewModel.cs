@@ -281,35 +281,6 @@ namespace TRINHTOOL.Floor.ViewModel
 
                      curvearr.Append(cv);
                      floorss.Add(curvearr);
-//                     try
-//                     {
-//                        Autodesk.Revit.DB.Floor floor;
-//#if R23 || R22 || R24
-//                        var cl = new CurveLoop();
-//                        var cl2 = new CurveLoop();
-//                        var curveLoop = new List<CurveLoop>();
-//                        foreach (CurveArray cur in floorss)
-//                        {
-//                           cur.ToCurves().ForEach(x => cl.Append(x));
-//                           curveLoop.Append(cl);
-//                        }
-//                        floor = Autodesk.Revit.DB.Floor.Create(AC.Document, curveLoop, SelectedFloorType.Id, SelectedLevel.Id);
-//#else
-//                        floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, SelectedLevel, true);
-//#endif
-
-//                        var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
-
-//                        offsetParam.Set(Offset.MmToFoot());
-
-//                     }
-//                     catch
-//                     {
-
-//                     }
-
-                     //progressView.Create(max, "FloorModel");
-                     //tx.Commit();
                   }
                }
                var tran = new Transaction(AC.Document);
@@ -318,17 +289,12 @@ namespace TRINHTOOL.Floor.ViewModel
                {
                   Autodesk.Revit.DB.Floor floor;
 #if R23 || R22 || R24
- 
+
                   var curveLoop = new List<CurveLoop>();
-                  //foreach (var cur in floorss)
-                  //{
-                  //   cur.ToCurves().ForEach(x => cl.Append(x));
-                  //   curveLoop.Append(cl);
-                  //}
                   floorss.ForEach(x =>
                   {
                      var cl = new CurveLoop();
-                     x.ToCurves().ForEach(y=>cl.Append(y));
+                     x.ToCurves().ForEach(y => cl.Append(y));
                      curveLoop.Add(cl);
                   });
                   floor = Autodesk.Revit.DB.Floor.Create(AC.Document, curveLoop, SelectedFloorType.Id, SelectedLevel.Id);
@@ -345,12 +311,10 @@ namespace TRINHTOOL.Floor.ViewModel
                {
 
                }
-               progressView.Create(max, "FloorModel");
                tran.Commit();
             }
 
             tg.Assimilate();
-            progressView.Close();
          }
       }
 
