@@ -70,6 +70,10 @@
       <None Remove="Resources\icon\floor_32.png" />
       <None Remove="Resources\icon\grid_16.png" />
       <None Remove="Resources\icon\grid_32.png" />
+      <None Remove="Resources\icon\help_16.png" />
+      <None Remove="Resources\icon\help_32.png" />
+      <None Remove="Resources\icon\inf_16.png" />
+      <None Remove="Resources\icon\inf_32.png" />
       <None Remove="Resources\icon\Level_16.png" />
       <None Remove="Resources\icon\Level_32.png" />
       <None Remove="Resources\icon\Sheet_16.png" />
@@ -101,6 +105,10 @@
       <Resource Include="Resources\icon\floor_32.png" />
       <Resource Include="Resources\icon\grid_16.png" />
       <Resource Include="Resources\icon\grid_32.png" />
+      <Resource Include="Resources\icon\help_16.png" />
+      <Resource Include="Resources\icon\help_32.png" />
+      <Resource Include="Resources\icon\inf_16.png" />
+      <Resource Include="Resources\icon\inf_32.png" />
       <Resource Include="Resources\icon\Level_16.png" />
       <Resource Include="Resources\icon\Level_32.png" />
       <Resource Include="Resources\icon\Sheet_16.png" />
@@ -126,13 +134,13 @@
             <AddinFiles Include="$(RootDir)**\*.*" />
         </ItemGroup>
 
-        <!--<Copy SourceFiles="@(AddinFiles)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)" />-->
+        <Copy SourceFiles="@(AddinFiles)" DestinationFolder="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\%(RecursiveDir)" />
     </Target>
 
-    <!--<Target Name="DeleteFiles" AfterTargets="Clean">
+    <Target Name="DeleteFiles" AfterTargets="Clean">
         <RemoveDir Directories="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName)" />
         <Delete Files="$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(ProjectName).addin" />
-    </Target>-->
+    </Target>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<!--<Exec Command="xcopy &quot;$(OutDir)*&quot; &quot;$(AppData)\Autodesk\Revit\Addins\$(RevitVersion)\$(TargetName)&quot; /E /H /C /I /K /D /Y&#xD;&#xA;&#xD;&#xA;if &quot;$(ConfigurationName)&quot; == &quot;Release R20&quot; xcopy &quot;$(TargetDir)*&quot;  /E /H /C /I /K /D /Y&#xD;&#xA;if &quot;$(ConfigurationName)&quot; == &quot;Release R21&quot; xcopy &quot;$(TargetDir)*&quot; &quot;$(SolutionDir)\InnoSetup\Content\$(RevitVersion)\$(TargetName)&quot; /E /H /C /I /K /D /Y&#xD;&#xA;if &quot;$(ConfigurationName)&quot; == &quot;Release R22&quot; xcopy &quot;$(TargetDir)*&quot; &quot;$(SolutionDir)\InnoSetup\Content\$(RevitVersion)\$(TargetName)&quot; /E /H /C /I /K /D /Y&#xD;&#xA;&#xD;&#xA;copy &quot;$(ProjectDir)*.addin&quot; &quot;$(SolutionDir)\InnoSetup\Content\$(RevitVersion)&quot;" />-->
 	</Target>
