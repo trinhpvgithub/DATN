@@ -66,8 +66,8 @@ namespace TRINHTOOL.Floor.ViewModel
       {
          GetLayer();
          SelectFromCad = new RelayCommand(x => SelectFloorFromCad());
-         Create = new RelayCommand(x => ModelFloor(AC.Selection.PickPoint()));
-         PointRevit = new RelayCommand(x => ModelFloor(new XYZ()));
+         Create = new RelayCommand(x=>ModelFloor(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x=>ModelFloor(new XYZ()));
          CanCel = new RelayCommand(x => CC());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
@@ -227,7 +227,6 @@ namespace TRINHTOOL.Floor.ViewModel
 
          if (Origin != null)
          {
-            List<CurveArray> floorss = new List<CurveArray>();
             var max = FloorInfoCollections.Count;
             Origin = new XYZ(Origin.X, Origin.Y, 0);
             var progressView = new progressbar();
@@ -246,9 +245,10 @@ namespace TRINHTOOL.Floor.ViewModel
                   {
                      break;
                   }
+
                   using (var tx = new Transaction(AC.Document, "Modeling Column From Cad"))
                   {
-                     //tx.Start();
+                     tx.Start();
                      FailureHandlingOptions failOpt = tx.GetFailureHandlingOptions();
 
                      failOpt.SetFailuresPreprocessor(waringsuper);
@@ -270,6 +270,8 @@ namespace TRINHTOOL.Floor.ViewModel
                         var l = Line.CreateBound(p1, p2);
                         Curve curve = l;
                         curvearr.Append(curve);
+
+
                      }
 
                      var pe = listpoint[listpoint.Count - 1].ToXyz().Add(Origin - info.Origin.ToXyz()).EditZ(SelectedLevel.Elevation);
@@ -302,13 +304,13 @@ namespace TRINHTOOL.Floor.ViewModel
                         floor = AC.Document.Create.NewFloor(curvearr, SelectedFloorType, SelectedLevel, true);
 #endif
 
-                  var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
+                        var offsetParam = floor.get_Parameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM);
 
-                  offsetParam.Set(Offset.MmToFoot());
+                        offsetParam.Set(Offset.MmToFoot());
 
-               }
-               catch
-               {
+                     }
+                     catch
+                     {
 
                }
                tran.Commit();
