@@ -70,6 +70,10 @@
       <None Remove="Resources\icon\floor_32.png" />
       <None Remove="Resources\icon\grid_16.png" />
       <None Remove="Resources\icon\grid_32.png" />
+      <None Remove="Resources\icon\help_16.png" />
+      <None Remove="Resources\icon\help_32.png" />
+      <None Remove="Resources\icon\inf_16.png" />
+      <None Remove="Resources\icon\inf_32.png" />
       <None Remove="Resources\icon\Level_16.png" />
       <None Remove="Resources\icon\Level_32.png" />
       <None Remove="Resources\icon\Sheet_16.png" />
@@ -101,6 +105,10 @@
       <Resource Include="Resources\icon\floor_32.png" />
       <Resource Include="Resources\icon\grid_16.png" />
       <Resource Include="Resources\icon\grid_32.png" />
+      <Resource Include="Resources\icon\help_16.png" />
+      <Resource Include="Resources\icon\help_32.png" />
+      <Resource Include="Resources\icon\inf_16.png" />
+      <Resource Include="Resources\icon\inf_32.png" />
       <Resource Include="Resources\icon\Level_16.png" />
       <Resource Include="Resources\icon\Level_32.png" />
       <Resource Include="Resources\icon\Sheet_16.png" />

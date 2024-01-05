@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using TRINHTOOL.Grid;
 using TRINHTOOL.CreateLevel;
 using TRINHTOOL.CreateSheet;
+using TRINHTOOL.Information;
+using TRINHTOOL.Help;
 
 namespace TRINHTOOL
 {
@@ -51,6 +53,13 @@ namespace TRINHTOOL
          var sheet = panelBanve.AddPushButton<CreateSheetCmd>("Create Sheet");
          sheet.SetImage("/TRINHTOOL;component/Resources/icon/Sheet_16.png");
          sheet.SetLargeImage("/TRINHTOOL;component/Resources/icon/Sheet_32.png");
+         var panelinf = Application.CreatePanel("Information", TAB_NAME);
+         var inf = panelinf.AddPushButton<InformationCmd>("Information");
+         inf.SetImage("/TRINHTOOL;component/Resources/icon/inf_16.png");
+         inf.SetLargeImage("/TRINHTOOL;component/Resources/icon/inf_32.png");
+         var help = panelinf.AddPushButton<HelpCmd>("Help");
+         help.SetImage("/TRINHTOOL;component/Resources/icon/help_16.png");
+         help.SetLargeImage("/TRINHTOOL;component/Resources/icon/help_32.png");
       }
 
    }
