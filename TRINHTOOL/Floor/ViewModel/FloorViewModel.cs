@@ -231,7 +231,7 @@ namespace TRINHTOOL.Floor.ViewModel
             Origin = new XYZ(Origin.X, Origin.Y, 0);
             var progressView = new progressbar();
             progressView.Show();
-
+            List<CurveArray> floorss= new List<CurveArray>();
             using var tg = new TransactionGroup(AC.Document, "Model Floor");
             tg.Start();
 
