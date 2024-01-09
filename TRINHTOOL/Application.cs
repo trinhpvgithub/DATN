@@ -18,6 +18,7 @@ using TRINHTOOL.CreateLevel;
 using TRINHTOOL.CreateSheet;
 using TRINHTOOL.Information;
 using TRINHTOOL.Help;
+using RestSharp;
 
 namespace TRINHTOOL
 {
