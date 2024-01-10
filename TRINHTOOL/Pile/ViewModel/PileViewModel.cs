@@ -25,7 +25,7 @@ namespace TRINHTOOL.Pile.ViewModel
    public class PileViewModel : ViewModelBase
    {
       #region Declare
-      PileView MainView { get; set; }
+      public PileView MainView { get; set; }
       public XyzData CadPileOrigin;
 
       public int Dept { get; set; } = 5000;
@@ -48,7 +48,19 @@ namespace TRINHTOOL.Pile.ViewModel
 
       public RelayCommand Create { get; set; }
 
+      public List<string> Layers { get; set; }
 
+      private string _selectedLayer;
+
+      public string SelectedLayer
+      {
+         get { return _selectedLayer; }
+         set
+         {
+            _selectedLayer = value;
+            OnPropertyChanged();
+         }
+      }
       public List<Family> Families
       {
          get => _families;
@@ -81,7 +93,27 @@ namespace TRINHTOOL.Pile.ViewModel
          set
          {
             _familySelectedsquare = value;
-            OnPropertyChanged();
+            if (FamilySelectedPile != null)
+            {
+               var first = FamilySelectedPile.GetFamilySymbolIds().FirstOrDefault().ToElement() as FamilySymbol;
+               SelectedFamilyParameters = first.GetOrderedParameters().Where(x => x.StorageType == StorageType.Double).Select(x => x.Definition.Name)
+                   .ToList();
+
+               SelectedDeptParameter = SelectedFamilyParameters.FirstOrDefault(x => x.Contains("Depth"));
+               SelectedRadiusParameter = SelectedFamilyParameters.FirstOrDefault(x => x.Contains("Radius"));
+
+               if (string.IsNullOrEmpty(SelectedDeptParameter))
+               {
+                  SelectedDeptParameter = SelectedFamilyParameters.FirstOrDefault();
+               }
+               if (string.IsNullOrEmpty(SelectedRadiusParameter))
+               {
+                  SelectedRadiusParameter = SelectedFamilyParameters.LastOrDefault();
+               }
+               OnPropertyChanged();
+            }
+            OnPropertyChanged(nameof(SelectedDeptParameter));
+            OnPropertyChanged(nameof(SelectedRadiusParameter));
          }
       }
 
@@ -109,8 +141,22 @@ namespace TRINHTOOL.Pile.ViewModel
          GetData();
          FamilySelectedPile = Families.FirstOrDefault();
          SelectedLevel = Levels.FirstOrDefault();
+         GetLayer();
+         SelectedLayer=Layers.FirstOrDefault();
       }
-
+      public void GetLayer()
+      {
+         dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
+         dynamic doc = a.Documents.Application.ActiveDocument;
+         var layers = doc.Layers;
+         List<string> layerss = new List<string>();
+         for (int i = 0; i < layers.Count; i++)
+         {
+            var item = layers[i];
+            layerss.Add(item.Name);
+         }
+         Layers = layerss;
+      }
       //Select Form Cad
       public void SelectPile()
       {
@@ -161,11 +207,37 @@ namespace TRINHTOOL.Pile.ViewModel
             List<dynamic> listText = new List<dynamic>();
 
             List<dynamic> listCirle = new List<dynamic>();
-
+#if true //Tét
+            List<CadData> cadDatas = new List<CadData>();
+            foreach (var l in newset)
+            {
+               cadDatas.Add(new CadData() { CadObject = l, LayerName = l.Layer });
+            }
+            var groupCadData = cadDatas.GroupBy(x => x.LayerName);
+            var listLayer = new List<string>();
+            foreach (var item in groupCadData)
+            {
+               listLayer.Add(item.Key);
+            }
+            Layers = listLayer;
+            var list = new List<CadData>();
+            foreach (var item in groupCadData)
+            {
+               if (item.Key == SelectedLayer)
+               {
+                  list = item.ToList();
+               }
+            }
+            var ob = new List<dynamic>();
+            foreach (var o in list)
+            {
+               ob.Add(o.CadObject);
+            }
+#endif
             //cot tron
             foreach (dynamic s in newset)
             {
-               if (s.EntityName == "AcDbText")
+               if (s.EntityName == "AcDbMText")
                {
                   listText.Add(s);
                }
