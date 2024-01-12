@@ -168,7 +168,7 @@ namespace TRINHTOOL.SlabFoudation.ViewModel
             {
                ob.Add(o.CadObject);
             }
-            foreach (dynamic s in newset)
+            foreach (dynamic s in ob)
             {
                if (s.EntityName == "AcDbPolyline")
                {

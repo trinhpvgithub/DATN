@@ -242,7 +242,7 @@ namespace TRINHTOOL.Pile.ViewModel
             }
 #endif
             //cot tron
-            foreach (dynamic s in newset)
+            foreach (dynamic s in ob)
             {
                if (s.EntityName == "AcDbMText")
                {
@@ -376,7 +376,7 @@ namespace TRINHTOOL.Pile.ViewModel
                      {
                         var pile = AC.Document.Create.NewFamilyInstance(center, fs,
                             SelectedLevel, StructuralType.Footing);
-
+                        pile.GetParameter(BuiltInParameter.FLOOR_HEIGHTABOVELEVEL_PARAM).Set(-200.MmToFoot());
                         var mark = pile.SetParameterValueByName(BuiltInParameter.ALL_MODEL_MARK, pileInfoCollection.Text);
                      }
                      catch

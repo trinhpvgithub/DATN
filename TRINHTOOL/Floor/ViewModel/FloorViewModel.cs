@@ -18,6 +18,7 @@ using TRINHTOOL.ViewModels.SubViewModels;
 using TRINHTOOL.Floor.Model;
 using TRINHTOOL.Views;
 using TRINHTOOL.Floor.View;
+using TRINHTOOL.SlabFoudation.ViewModel;
 
 namespace TRINHTOOL.Floor.ViewModel
 {
@@ -97,7 +98,8 @@ namespace TRINHTOOL.Floor.ViewModel
       //Select Floor From cad
       public void SelectFloorFromCad()
       {
-         //_pileInfoCollection.Clear();
+         floorInfoCollections.Clear();
+         cadFloors.Clear();
          MainView.Hide();
          dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
 
@@ -316,6 +318,7 @@ namespace TRINHTOOL.Floor.ViewModel
             }
 
             tg.Assimilate();
+            MainView.ShowDialog();
          }
       }
 

@@ -407,6 +407,7 @@ namespace TRINHTOOL.Column.ViewModel
                }
             }
          }
+         cadRectangles.Clear();
          ColumnInfoCollections = new ObservableCollection<ColumnInfoCollection>(columnInfoCollections);
       }
 
@@ -498,6 +499,7 @@ namespace TRINHTOOL.Column.ViewModel
                }
                tg.Assimilate();
                progressView.Close();
+               MainView.ShowDialog();
             }
          }
       }

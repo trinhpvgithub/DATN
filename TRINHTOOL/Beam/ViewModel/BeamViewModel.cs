@@ -389,6 +389,7 @@ namespace TRINHTOOL.Beam.ViewModel
             }
             tg.Assimilate();
             progressView.Close();
+            MainView.ShowDialog();
          }
       }
 
@@ -432,6 +433,7 @@ namespace TRINHTOOL.Beam.ViewModel
                _beamInfoCollections.Add(collection);
             }
          }
+         _cadBeams.Clear();
          BeamInfoCollections.Clear();
          OnPropertyChanged(nameof(BeamInfoCollections));
          BeamInfoCollections = new ObservableCollection<BeamInfoCollection>(_beamInfoCollections);
