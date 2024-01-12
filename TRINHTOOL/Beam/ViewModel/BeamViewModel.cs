@@ -175,7 +175,7 @@ namespace TRINHTOOL.Beam.ViewModel
                 .Select(x => x.ToString())
                 .ToArray();
          }
-         catch (Exception e)
+         catch (Exception )
          {
             MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTCAD, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
          }
@@ -312,7 +312,7 @@ namespace TRINHTOOL.Beam.ViewModel
          {
             Origin = Point;
          }
-         catch (Exception e)
+         catch (Exception )
          {
             MessageBox.Show(Resources.COMMON_MESSAGEPICKPOINTREVIT, Resources.COMMON_NOTIFY, MessageBoxButton.OKCancel, MessageBoxImage.Error);
          }

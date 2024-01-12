@@ -59,6 +59,8 @@ namespace TRINHTOOL.SlabFoudation.ViewModel
       public Level SelectedLevel { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand Cancel { get; set; }
+      public RelayCommand PointRevit { get; set; }
 
       public RelayCommand SelectFromCad { get; set; }
 
@@ -66,12 +68,18 @@ namespace TRINHTOOL.SlabFoudation.ViewModel
       public SlabViewModel()
       {
          SelectFromCad = new RelayCommand(x => SelectFloorFromCad());
-         Create = new RelayCommand(x => ModelSlab());
+         Create = new RelayCommand(x => ModelSlab(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x => ModelSlab(new XYZ()));
+         Cancel = new RelayCommand(x => Cancell());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
          GetLayer();
          SelectedLayer = Layers.FirstOrDefault();
          SelectedSlabType = SlabType.FirstOrDefault();
+      }
+      public void Cancell()
+      {
+         MainView?.Close();
       }
       public void GetLayer()
       {
@@ -200,12 +208,13 @@ namespace TRINHTOOL.SlabFoudation.ViewModel
       }
 
       //Model Floor
-      public void ModelSlab()
+      public void ModelSlab(XYZ point)
       {
+         MainView.Hide();
          var max = SlabInfoCollections.Count;
          try
          {
-            Origin = AC.Selection.PickPoint();
+            Origin = point;
          }
          catch (Exception e)
          {

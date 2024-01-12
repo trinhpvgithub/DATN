@@ -8,7 +8,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="SlabView" Height="450" Width="600"
-        SizeToContent="Height"
         Topmost="True"
         WindowStartupLocation="CenterScreen">
    <FrameworkElement.Resources>
@@ -56,7 +55,8 @@
       <DockPanel  Grid.ColumnSpan="2">
          <GroupBox Margin="0,0,0,5"
                       DockPanel.Dock="Top"
-                      Header="{DynamicResource MODELFROMCAD_SETTINGS}">
+                      Header="{DynamicResource MODELFROMCAD_SETTINGS}"
+                   Foreground="Black">
             <Grid Margin="4">
                <Grid.RowDefinitions>
                   <RowDefinition Height="55"></RowDefinition>
@@ -120,7 +120,6 @@
                   <TextBox Text="{Binding Offset}"
                                  Grid.Column="3"
                                  Margin="2"
-                                 Height="30"
                                  TextAlignment="Center"
                                  VerticalContentAlignment="Center"
                         ></TextBox>
@@ -146,7 +145,7 @@
                <Button
          Name="Btn"
          Height="30"
-         Margin="5,5,0,5"
+         Margin="0,5,0,5"
          HorizontalAlignment="Right"
          Command="{Binding PointRevit}"
          Content="{DynamicResource COMMON_BUTTON_PICK}"

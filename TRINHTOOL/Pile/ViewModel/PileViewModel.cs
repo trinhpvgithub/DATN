@@ -47,6 +47,8 @@ namespace TRINHTOOL.Pile.ViewModel
       public RelayCommand SelectFormCadPile { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand Cancel { get; set; }
+      public RelayCommand PointRevit { get; set; }
 
       public List<string> Layers { get; set; }
 
@@ -132,11 +134,16 @@ namespace TRINHTOOL.Pile.ViewModel
          }
          get => _selectedLevel;
       }
-
+      public void Cancell()
+      {
+         MainView?.Close();
+      }
       //Constructor
       public PileViewModel()
       {
-         Create = new RelayCommand(x => ModelPile());
+         Create = new RelayCommand(x => ModelPile(AC.Selection.PickPoint()));
+         PointRevit = new RelayCommand(x => ModelPile(new XYZ()));
+         Cancel = new RelayCommand(x => Cancell());
          SelectFormCadPile = new RelayCommand(x => SelectPile());
          GetData();
          FamilySelectedPile = Families.FirstOrDefault();
@@ -308,13 +315,12 @@ namespace TRINHTOOL.Pile.ViewModel
       }
 
       //Model Pile
-      public void ModelPile()
+      public void ModelPile(XYZ point)
       {
-
          MainView.Hide();
          try
          {
-            _origin = AC.Selection.PickPoint();
+            _origin = point;
             _origin = new XYZ(_origin.X, _origin.Y, 0);
          }
          catch (Exception e)

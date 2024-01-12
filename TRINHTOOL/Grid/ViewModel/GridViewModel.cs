@@ -37,6 +37,8 @@ namespace TRINHTOOL.Grid.ViewModel
       public RelayCommand SelectFromCad { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand Cancel { get; set; }
+      public RelayCommand PointRevit { get; set; }
 
       public List<GridType> Grids { get; set; } = new();
 
@@ -63,11 +65,17 @@ namespace TRINHTOOL.Grid.ViewModel
       {
          GetLayer();
          SelectFromCad = new RelayCommand(x => SelectGridFromCad());
-         Create = new RelayCommand(ModelGrid);
+         Create = new RelayCommand(x=>ModelGrid(AC.Selection.PickPoint()));
+         PointRevit= new RelayCommand(x => ModelGrid(new XYZ()));
+         Cancel = new RelayCommand(x => Cancell());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
          Grid = Grids.FirstOrDefault();
          SelectedLayer = Layers.FirstOrDefault();
+      }
+      public void Cancell()
+      {
+         MainView?.Close();
       }
       public void GetLayer()
       {
@@ -239,20 +247,13 @@ namespace TRINHTOOL.Grid.ViewModel
       }
 
       //ModelGrid
-      public void ModelGrid(object obj)
+      public void ModelGrid(XYZ point)
       {
-
-
-         if (obj is Window w)
-         {
-            w.Close();
-         }
-
          MainView.Hide();
 
          try
          {
-            _origin = AC.Selection.PickPoint();
+            _origin = point;
             _origin = new XYZ(_origin.X, _origin.Y, 0);
          }
          catch (Exception e)

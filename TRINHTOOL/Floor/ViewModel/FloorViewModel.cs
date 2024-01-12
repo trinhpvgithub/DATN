@@ -229,8 +229,8 @@ namespace TRINHTOOL.Floor.ViewModel
          {
             var max = FloorInfoCollections.Count;
             Origin = new XYZ(Origin.X, Origin.Y, 0);
-            var progressView = new progressbar();
-            progressView.Show();
+            //var progressView = new progressbar();
+            //progressView.Show();
             List<CurveArray> floorss= new List<CurveArray>();
             using var tg = new TransactionGroup(AC.Document, "Model Floor");
             tg.Start();
@@ -241,11 +241,10 @@ namespace TRINHTOOL.Floor.ViewModel
             {
                foreach (var listpoint in info.Points)
                {
-                  if (progressView.Flag == false)
-                  {
-                     break;
-                  }
-
+                  //if (progressView.Flag == false)
+                  //{
+                  //   break;
+                  //}
                   using (var tx = new Transaction(AC.Document, "Modeling Column From Cad"))
                   {
                      tx.Start();
