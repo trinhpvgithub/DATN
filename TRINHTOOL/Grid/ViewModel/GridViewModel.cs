@@ -37,6 +37,8 @@ namespace TRINHTOOL.Grid.ViewModel
       public RelayCommand SelectFromCad { get; set; }
 
       public RelayCommand Create { get; set; }
+      public RelayCommand Cancel { get; set; }
+      public RelayCommand PointRevit { get; set; }
 
       public List<GridType> Grids { get; set; } = new();
 
@@ -45,17 +47,49 @@ namespace TRINHTOOL.Grid.ViewModel
 
       public ObservableCollection<GridInfoCollection> GridInfoCollections { get; set; } = new();
 
+      public List<string> Layers { get; set; }
 
+      private string _selectedLayer;
+
+      public string SelectedLayer
+      {
+         get { return _selectedLayer; }
+         set
+         {
+            _selectedLayer = value;
+            OnPropertyChanged();
+         }
+      }
       //Constructor
       public GridViewModel()
       {
+         GetLayer();
          SelectFromCad = new RelayCommand(x => SelectGridFromCad());
-         Create = new RelayCommand(ModelGrid);
+         Create = new RelayCommand(x=>ModelGrid(AC.Selection.PickPoint()));
+         PointRevit= new RelayCommand(x => ModelGrid(new XYZ()));
+         Cancel = new RelayCommand(x => Cancell());
          GetData();
          SelectedLevel = Levels.FirstOrDefault();
          Grid = Grids.FirstOrDefault();
+         SelectedLayer = Layers.FirstOrDefault();
       }
-
+      public void Cancell()
+      {
+         MainView?.Close();
+      }
+      public void GetLayer()
+      {
+         dynamic a = Marshal.GetActiveObject("AutoCaD.Application");
+         dynamic doc = a.Documents.Application.ActiveDocument;
+         var layers = doc.Layers;
+         List<string> layerss = new List<string>();
+         for (int i = 0; i < layers.Count; i++)
+         {
+            var item = layers[i];
+            layerss.Add(item.Name);
+         }
+         Layers = layerss;
+      }
       //SelectFromCad
       public void SelectGridFromCad()
       {
@@ -108,8 +142,32 @@ namespace TRINHTOOL.Grid.ViewModel
 
             List<dynamic> listLine = new List<dynamic>();
 
-
-            foreach (dynamic s in newset)
+            List<CadData> cadDatas = new List<CadData>();
+            foreach (var l in newset)
+            {
+               cadDatas.Add(new CadData() { CadObject = l, LayerName = l.Layer });
+            }
+            var groupCadData = cadDatas.GroupBy(x => x.LayerName);
+            var listLayer = new List<string>();
+            foreach (var item in groupCadData)
+            {
+               listLayer.Add(item.Key);
+            }
+            Layers = listLayer;
+            var list = new List<CadData>();
+            foreach (var item in groupCadData)
+            {
+               if (item.Key == SelectedLayer)
+               {
+                  list = item.ToList();
+               }
+            }
+            var ob = new List<dynamic>();
+            foreach (var o in list)
+            {
+               ob.Add(o.CadObject);
+            }
+            foreach (dynamic s in ob)
             {
                if (s.EntityName == "AcDbLine")
                {
@@ -189,20 +247,13 @@ namespace TRINHTOOL.Grid.ViewModel
       }
 
       //ModelGrid
-      public void ModelGrid(object obj)
+      public void ModelGrid(XYZ point)
       {
-
-
-         if (obj is Window w)
-         {
-            w.Close();
-         }
-
          MainView.Hide();
 
          try
          {
-            _origin = AC.Selection.PickPoint();
+            _origin = point;
             _origin = new XYZ(_origin.X, _origin.Y, 0);
          }
          catch (Exception e)
