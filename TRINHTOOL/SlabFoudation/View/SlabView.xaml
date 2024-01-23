@@ -172,7 +172,7 @@
             </StackPanel>
          </Grid>
 
-         <DataGrid BorderBrush="BlueViolet"
+         <DataGrid BorderBrush="Teal"
                       RowHeight="23"
                       MinHeight="150"
                       AutoGenerateColumns="False"

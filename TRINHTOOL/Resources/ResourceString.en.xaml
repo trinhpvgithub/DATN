@@ -3,7 +3,7 @@
    <system:String x:Key="COMMON_BUTTON_CLOSE">Close</system:String>
    <system:String x:Key="COMMON_BUTTON_CANCEL">Cancel</system:String>
    <system:String x:Key="COMMON_BUTTON_CREATE">Create</system:String>
-   <system:String x:Key="COMMON_BUTTON_PICK">PickPoint</system:String>
+   <system:String x:Key="COMMON_BUTTON_PICK">Origin</system:String>
    <system:String x:Key="COMMON_BUTTON_OK">Ok</system:String>
    <system:String x:Key="COMMON_BUTTON_SELECTFROMCAD">Select From Cad</system:String>
    <system:String x:Key="MODELFROMCAD_BASELEVEL">Base Level:</system:String>

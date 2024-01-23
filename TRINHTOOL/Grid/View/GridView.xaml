@@ -130,7 +130,6 @@
                         IsCancel="True" />
                <Button
                         Name="BtClose"
-                        Width="120"
                         Height="30"
                         Margin="5,5,0,5"
                         HorizontalAlignment="Right"
@@ -153,7 +152,7 @@
          <DataGrid
                 MinHeight="150"
                 AutoGenerateColumns="False"
-                BorderBrush="BlueViolet"
+                BorderBrush="Teal"
                 CanUserAddRows="False"
                 ItemsSource="{Binding GridInfoCollections, Mode=TwoWay}"
                 RowHeight="23"

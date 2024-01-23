@@ -183,7 +183,6 @@
                         IsCancel="True" />
                <Button
                         Name="BtClose"
-                        Width="120"
                         Height="30"
                         Margin="5,5,0,5"
                         HorizontalAlignment="Right"
@@ -203,7 +202,7 @@
             </StackPanel>
          </Grid>
 
-         <DataGrid BorderBrush="BlueViolet"
+         <DataGrid BorderBrush="Teal"
                       RowHeight="23"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
