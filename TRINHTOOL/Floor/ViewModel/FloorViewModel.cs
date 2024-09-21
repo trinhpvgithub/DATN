@@ -241,6 +241,7 @@ namespace TRINHTOOL.Floor.ViewModel
 
             foreach (var info in cadFloors)
             {
+                     CurveArray curvearr = new CurveArray();
                foreach (var listpoint in info.Points)
                {
                   //if (progressView.Flag == false)
@@ -256,7 +257,6 @@ namespace TRINHTOOL.Floor.ViewModel
 
                      tx.SetFailureHandlingOptions(failOpt);
 
-                     CurveArray curvearr = new CurveArray();
 
                      for (int i = 0; i < listpoint.Count - 1; i++)
                      {
