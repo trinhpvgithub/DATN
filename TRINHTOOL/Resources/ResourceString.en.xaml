@@ -16,6 +16,7 @@
    <system:String x:Key="MODELFROMCAD_CREATEPILE">Create Pile</system:String>
    <system:String x:Key="MODELFROMCAD_CREATEWALL">Create Wall</system:String>
    <system:String x:Key="MODELFROMCAD_FAMILY">Family:</system:String>
+   <system:String x:Key="MODELFROMCAD_FileCads">FileCads:</system:String>
    <system:String x:Key="MODELFROMCAD_FLOORVIEW_AREA">Area</system:String>
    <system:String x:Key="MODELFROMCAD_FLOORVIEW_FLOORTYPE">Floor Type:</system:String>
    <system:String x:Key="MODELFROMCAD_FLOORVIEW_OFFSETFROMLEVEL">Offset From Level:</system:String>
@@ -30,7 +31,7 @@
    <system:String x:Key="MODELFROMCAD_MESSAGE_SELECTELEMENTCAD">You did not select any elements</system:String>
    <system:String x:Key="MODELFROMCAD_MODELFROMBLOCK">Model From Block</system:String>
    <system:String x:Key="MODELFROMCAD_NUMBER">Number</system:String>
-   <system:String x:Key="MODELFROMCAD_PILEVIEW_DEPT">Dept</system:String>
+   <system:String x:Key="MODELFROMCAD_PILEVIEW_DEPT">Depth</system:String>
    <system:String x:Key="MODELFROMCAD_RADIUS">Radius</system:String>
    <system:String x:Key="MODELFROMCAD_SETTINGS">Settings</system:String>
    <system:String x:Key="MODELFROMCAD_SLABVIEW_AREA">Area</system:String>

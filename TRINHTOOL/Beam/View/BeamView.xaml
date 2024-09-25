@@ -73,6 +73,8 @@
                   <Grid.ColumnDefinitions>
                      <ColumnDefinition Width="70" />
                      <ColumnDefinition />
+                     <ColumnDefinition Width="70" />
+                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
                   <TextBlock Grid.Column="0" Text="{DynamicResource MODELFROMCAD_FAMILY}" />
                   <ComboBox
@@ -81,6 +83,14 @@
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding Families}"
                             SelectedItem="{Binding FamilySelected}" />
+                  <TextBlock Grid.Column="2" 
+                             Text="{DynamicResource MODELFROMCAD_FileCads}"
+                             HorizontalAlignment="Right"/>
+                  <ComboBox
+          Grid.Column="3"
+          materialDesign:HintAssist.Hint="FileCad"
+          ItemsSource="{Binding FileCads}"
+          SelectedItem="{Binding SelectedFileCad}" />
                </Grid>
 
                <Grid Grid.Row="1" Margin="4">
